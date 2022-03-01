@@ -54,6 +54,7 @@ input:focus {
 
 .icon-up {
     transform: rotate(180deg);
+    margin-bottom: 1px;
 }
 
 .control-buttons button {
@@ -75,4 +76,11 @@ input:focus {
     display: flex;
     padding: 0 4px;
     justify-content: space-between;
+}
+
+.btn-track {
+    transform: scale(1.5);
+    padding: 0;
+    margin-right: 15px;
+    border-radius: 0;
 }

@@ -56,6 +56,7 @@ input:focus {
 .icon {
   width: 25px;
   margin: 0 5px;
+  cursor: pointer;
 }
 
 .icon-up {
@@ -90,6 +91,11 @@ input:focus {
   display: flex;
   padding: 0 4px;
   justify-content: space-between;
+}
+
+.sort-buttons button {
+  border: 0;
+  background-color: #FFF;
 }
 
 .btn-track {

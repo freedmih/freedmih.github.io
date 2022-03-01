@@ -20,7 +20,8 @@
 
 .tasks {
     display: flex;
-     width: 100%;     
+    width: 100%;
+    flex-direction: column;     
 }
 
 .add-task-input {
@@ -39,6 +40,7 @@ input:focus {
     justify-content: space-between;
 
     border: 1px solid #d9d9d9;
+    margin-bottom: 10px;
 }
 
 .task-left, .task-right {
@@ -50,6 +52,7 @@ input:focus {
 
 .icon {
     width: 25px;
+    margin: 0 5px;
 }
 
 .icon-up {

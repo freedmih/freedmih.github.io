@@ -82,6 +82,10 @@ input:focus {
     outline: none;
 }
 
+.arrow {
+    cursor: pointer;
+}
+
 .sort-buttons {
     display: flex;
     padding: 0 4px;

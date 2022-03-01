@@ -1,14 +1,14 @@
 export default function Task(props) {
     return (
-        <div class="task">
-        <div class="task-left">
-            <input type="checkbox" class="btn-track"/>
-            <p>{props.title}</p>
+        <div className="task">
+            <div className="task-left">
+                <input type="checkbox" className="btn-track" />
+                <p>{props.title}</p>
+            </div>
+            <div className="task-right">
+                <p>{props.date}</p>
+                <button className="btn-delete-task" onClick={() => props.deleteCallback(props.id)}>Delete</button>
+            </div>
         </div>
-        <div class="task-right">
-            <p>{props.date}</p>
-            <button class="btn-delete-task">Delete</button>
-        </div>
-    </div>
     )
 }

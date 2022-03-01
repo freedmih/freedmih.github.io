@@ -2,14 +2,43 @@ import './App.css';
 import upArrow from './upArrow.svg';
 import downArrow from './downArrow.svg';
 
-import Task from "./components/Task"
+import Task from "./components/Task";
+
+import { useState } from "react";
 
 function App() {
+
+  const [tasks, setTasks] = useState([]);
+
+  const [titleTask, setTitleTask] = useState('');
+
+  const removeTask = taskId => {
+
+    console.log(tasks, taskId);
+    setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
+  }
+
+  const addTask = event => {
+
+    if(titleTask.trim() === "") return;
+
+    if(event.key === "Enter") {
+      setTasks(
+        [
+          ...tasks,
+          { id: tasks.length, title: titleTask, deleteCallback: removeTask }
+        ]
+      );
+
+      setTitleTask('');
+    }
+  }
+
   return (
     <div className="App">
       <h1>Todo</h1>
       <div className="input-container">
-        <input className="add-task-input" type="text" placeholder="I want to..." />
+        <input className="add-task-input" type="text" placeholder="I want to..." value={titleTask} onKeyDown={addTask} onChange={e => setTitleTask(e.target.value)}/>
       </div>
       <div className="control-container">
         <div className="control-buttons">
@@ -24,7 +53,9 @@ function App() {
         </div>
       </div>
       <div className="Tasks">
-        <Task title="Do something" date="03/03/2022"/>
+        {
+          tasks.map(task => <Task key={task.id} id={task.id} title={task.title} date={task.date} deleteCallback={removeTask} />)
+        }
       </div>
     </div>
   );

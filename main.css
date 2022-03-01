@@ -1,0 +1,78 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.control-container {
+    display: flex;
+    justify-content: center;
+}
+
+.control-container {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tasks {
+    display: flex;
+     width: 100%;     
+}
+
+.add-task-input {
+    border: 1px solid #d9d9d9;
+    padding: 8px;
+    width: 50%;
+}
+
+input:focus {
+    outline: none;
+}
+
+.task {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    border: 1px solid #d9d9d9;
+}
+
+.task-left, .task-right {
+    display: flex;
+    padding: 4px 8px;
+    align-items: center;
+}
+
+
+.icon {
+    width: 25px;
+}
+
+.icon-up {
+    transform: rotate(180deg);
+}
+
+.control-buttons button {
+    background-color: #1890ff;
+    border: 0;
+    color: white;
+    padding: 8px;
+    border-radius: 2px;
+    transition: color .3s,background .3s,border-color .3s,box-shadow .3s;
+}
+
+.control-buttons button:hover {
+    background-color: #0e4a83;
+    cursor: pointer;
+    outline: none;
+}
+
+.sort-buttons {
+    display: flex;
+    padding: 0 4px;
+    justify-content: space-between;
+}

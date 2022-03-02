@@ -1,5 +1,4 @@
 export default function Task(props) {
-
     let date = new Date(props.date);
     let dateStr = `${date.getTime()} ${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;
 

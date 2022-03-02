@@ -11,14 +11,16 @@ function App() {
 
   const [titleTask, setTitleTask] = useState('');
 
-  const { 
-    todos, 
-    addTodo, 
-    deleteTodo, 
-    sortByDateUp, 
-    sortByDateDown, 
+  const [filter, setFilter] = useState(0);
+
+  const {
+    todos,
+    addTodo,
+    deleteTodo,
+    sortByDateUp,
+    sortByDateDown,
     changeStatus
-   } = useTaskState([]);
+  } = useTaskState([]);
 
   const addTask = event => {
 
@@ -34,6 +36,12 @@ function App() {
     }
   }
 
+  const changeFilter = current => {
+    setFilter(current);
+
+  }
+
+
   return (
     <div className="App">
       <h1>Todo</h1>
@@ -42,13 +50,13 @@ function App() {
       </div>
       <div className="control-container">
         <div className="control-buttons">
-          <button className="control-button control-button-selected">All</button>
-          <button className="control-button">Done</button>
-          <button className="control-button">Undone</button>
+          <button className={filter == 0 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(0)}>All</button>
+          <button className={filter == 1 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(1)}>Done</button>
+          <button className={filter == 2 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(2)}>Undone</button>
         </div>
         <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
       </div>
-      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} />
+      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter}/>
     </div>
   );
 }

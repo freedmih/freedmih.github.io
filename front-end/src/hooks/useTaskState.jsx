@@ -27,6 +27,6 @@ export default initialValue => {
             const newTodos = [...todos];
             newTodos[todoIndex].isDone = !newTodos[todoIndex].isDone;
             setTodos(newTodos);
-        }
+        },
     };
 };

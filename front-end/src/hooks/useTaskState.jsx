@@ -9,8 +9,7 @@ export default initialValue => {
             setTodos([...todos, todoObject]);
         },
         deleteTodo: todoIndex => {
-            const newTodos = todos.filter((_, index) => index !== todoIndex);
-
+            const newTodos = todos.filter((todo) => todo.id !== todoIndex);
             setTodos(newTodos);
         },
         sortByDateUp: () => {

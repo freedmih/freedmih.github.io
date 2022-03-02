@@ -6,6 +6,7 @@ import useTaskState from "./hooks/useTaskState";
 
 import { useEffect, useState } from "react";
 import SortButtons from './components/SortButtons';
+import Pagination from './components/Pagination';
 
 function App() {
 
@@ -42,9 +43,9 @@ function App() {
 
   const changeFilter = current => {
     setFilter(current);
-
   }
 
+  const footer = todos.length > 10 ? <Pagination/> : <></>
 
   return (
     <div className="App">
@@ -61,6 +62,7 @@ function App() {
         <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
       </div>
       <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter}/>
+      {footer}
     </div>
   );
 }

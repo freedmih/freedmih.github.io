@@ -24,7 +24,8 @@ export default initialValue => {
         },
         changeStatus: todoIndex => {
             const newTodos = [...todos];
-            newTodos[todoIndex].isDone = !newTodos[todoIndex].isDone;
+            const idx = todos.findIndex(task => task.id === todoIndex);
+            newTodos[idx].isDone = !newTodos[idx].isDone;
             setTodos(newTodos);
         },
     };

@@ -9,8 +9,6 @@ import SortButtons from './components/SortButtons';
 
 function App() {
 
-  //const [tasks, setTasks] = useState([]);
-
   const [titleTask, setTitleTask] = useState('');
 
   const { 
@@ -44,9 +42,9 @@ function App() {
       </div>
       <div className="control-container">
         <div className="control-buttons">
-          <button className="control-button-selected">All</button>
-          <button>Done</button>
-          <button>Undone</button>
+          <button className="control-button control-button-selected">All</button>
+          <button className="control-button">Done</button>
+          <button className="control-button">Undone</button>
         </div>
         <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
       </div>

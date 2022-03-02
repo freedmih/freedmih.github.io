@@ -64,7 +64,7 @@ input:focus {
   margin-bottom: 1px;
 }
 
-.control-buttons button {
+.control-button {
   background-color: #fff;
   border-color: #1890ff;
   border: 1px solid #1890ff;
@@ -148,4 +148,9 @@ input:focus {
 .btn-delete-task:hover {
   background-color: #ff4d4f;
   color: white;
+}
+
+.control-button-selected {
+  color: white;
+  background-color: #1890ff;
 }

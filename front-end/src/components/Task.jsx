@@ -6,14 +6,34 @@ export default function Task(props) {
 
     const title = props.isDone ? <s>{props.title}</s> : <p>{props.title}</p>
 
+    const [ editStatus, setEditStatus ] = useState(false);
+    const [ editText, setEditText ] = useState(props.title);
+
+    const toggleEditMode = () => {
+        setEditStatus(true);
+    }
+
+    const handleInput = event => {
+        if(event.key == "Enter") {
+            props.saveTitle(props.id, editText);
+            setEditStatus(false);
+        } else if(event.key == "Escape") {
+            setEditText(props.title);
+            setEditStatus(false);
+        }
+    }
+
+
+    const details = editStatus ? <input autoFocus type = "text" className="edit-task-input" onKeyDown={e => handleInput(e)} value={editText} onChange={e => setEditText(e.target.value)}/> : title
+
     return (
-        <div className="task">
+        <div className="task" onClick={() => toggleEditMode()}>
             <div className="task-left">
-                <input type="checkbox" className="btn-track" onChange={() => props.changeStatus(props.id)} checked={props.isDone}/>
-                {title}
+                <input type="checkbox" className="btn-track"  onClick={e => e.stopPropagation()} onChange={(e) => props.changeStatus(props.id)} checked={props.isDone}/>
+                {details}
             </div>
             <div className="task-right">
-                <p>{dateStr}</p>
+                {<p>{dateStr}</p>}
                 <button className="btn-delete-task" onClick={() => props.deleteCallback(props.id)}>Delete</button>
             </div>
         </div>

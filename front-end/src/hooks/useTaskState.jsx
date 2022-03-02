@@ -28,5 +28,11 @@ export default initialValue => {
             newTodos[idx].isDone = !newTodos[idx].isDone;
             setTodos(newTodos);
         },
+        saveTitle: (todoIndex, newTitle) => {
+            const newTodos = [...todos];
+            const idx = todos.findIndex(task => task.id === todoIndex);
+            newTodos[idx].title = newTitle;
+            setTodos(newTodos);
+        }
     };
 };

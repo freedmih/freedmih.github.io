@@ -4,15 +4,16 @@ import TaskList from "./components/TaskList";
 
 import useTaskState from "./hooks/useTaskState";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SortButtons from './components/SortButtons';
 import Pagination from './components/Pagination';
 
 function App() {
 
   const [titleTask, setTitleTask] = useState('');
-  const [ index, setIndex ] = useState(0);
+  const [index, setIndex] = useState(0);
   const [filter, setFilter] = useState(0);
+  const [activePage, setActivePage] = useState(0);
 
   const {
     todos,
@@ -20,7 +21,8 @@ function App() {
     deleteTodo,
     sortByDateUp,
     sortByDateDown,
-    changeStatus
+    changeStatus,
+    saveTitle
   } = useTaskState([]);
 
   const addTask = event => {
@@ -45,7 +47,7 @@ function App() {
     setFilter(current);
   }
 
-  const footer = todos.length > 10 ? <Pagination/> : <></>
+  const footer = todos.length > 5 ? <Pagination activePage={activePage}/> : <></>
 
   return (
     <div className="App">
@@ -55,13 +57,13 @@ function App() {
       </div>
       <div className="control-container">
         <div className="control-buttons">
-          <button className={filter == 0 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(0)}>All</button>
-          <button className={filter == 1 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(1)}>Done</button>
-          <button className={filter == 2 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(2)}>Undone</button>
+          <button className={filter === 0 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(0)}>All</button>
+          <button className={filter === 1 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(1)}>Done</button>
+          <button className={filter === 2 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(2)}>Undone</button>
         </div>
         <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
-      </div>
-      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter}/>
+      </div>  
+      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={activePage} saveTitle={saveTitle} />
       {footer}
     </div>
   );

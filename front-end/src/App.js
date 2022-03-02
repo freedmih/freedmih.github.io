@@ -10,7 +10,7 @@ import SortButtons from './components/SortButtons';
 function App() {
 
   const [titleTask, setTitleTask] = useState('');
-
+  const [ index, setIndex ] = useState(0);
   const [filter, setFilter] = useState(0);
 
   const {
@@ -27,11 +27,15 @@ function App() {
     if (titleTask.trim() === "") return;
 
     if (event.key === "Enter") {
-      addTodo({
-        title: titleTask,
-        date: new Date().getTime(),
-        isDone: false
-      });
+      setIndex(prevIndex => {
+        addTodo({
+          id: index,
+          title: titleTask,
+          date: new Date().getTime(),
+          isDone: false
+        });
+        return ++prevIndex;
+      })
       setTitleTask('');
     }
   }

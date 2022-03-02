@@ -13,7 +13,7 @@ export default function TaskList({ tasks, deleteTask, changeStatus, filter }) {
         <div className="Tasks">
             {
                 tasks.filter(x => needToShow(x.isDone)).map((task, index) =>
-                    <Task key={index} id={index} title={task.title} date={task.date} deleteCallback={deleteTask} changeStatus={changeStatus} isDone={task.isDone} />)
+                    <Task key={task.id} id={task.id} title={task.title} date={task.date} deleteCallback={deleteTask} changeStatus={changeStatus} isDone={task.isDone} />)
             }
         </div>
     )

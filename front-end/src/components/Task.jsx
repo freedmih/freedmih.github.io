@@ -9,7 +9,7 @@ export default function Task(props) {
     return (
         <div className="task">
             <div className="task-left">
-                <input type="checkbox" className="btn-track" onClick={() => props.changeStatus(props.id)} checked={props.isDone}/>
+                <input type="checkbox" className="btn-track" onChange={() => props.changeStatus(props.id)} checked={props.isDone}/>
                 {title}
             </div>
             <div className="task-right">

@@ -33,6 +33,6 @@ export default initialValue => {
             const idx = todos.findIndex(task => task.id === todoIndex);
             newTodos[idx].title = newTitle;
             setTodos(newTodos);
-        }
+        },
     };
 };

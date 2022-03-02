@@ -13,7 +13,7 @@ function App() {
   const [titleTask, setTitleTask] = useState('');
   const [index, setIndex] = useState(0);
   const [filter, setFilter] = useState(0);
-  const [activePage, setActivePage] = useState(0);
+  const [page, setPage] = useState(0);
 
   const {
     todos,
@@ -47,7 +47,8 @@ function App() {
     setFilter(current);
   }
 
-  const footer = todos.length > 5 ? <Pagination activePage={activePage}/> : <></>
+  //const footer = todos.length > 5 ? <Pagination activePage={activePage}/> : <></>
+  const footer = <Pagination count={todos.length} activePage={page} setActivePage={setPage}/>
 
   return (
     <div className="App">
@@ -63,7 +64,7 @@ function App() {
         </div>
         <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
       </div>  
-      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={activePage} saveTitle={saveTitle} />
+      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} />
       {footer}
     </div>
   );

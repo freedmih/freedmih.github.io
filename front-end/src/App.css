@@ -161,3 +161,9 @@ input:focus {
   padding: 4px;
   width: 100%;
 }
+
+.button-pag-selected  {
+  background-color: #1890ff;
+  color: white;
+  border-color: #1890ff;
+}

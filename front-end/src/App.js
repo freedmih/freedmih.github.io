@@ -13,7 +13,14 @@ function App() {
 
   const [titleTask, setTitleTask] = useState('');
 
-  const { todos, addTodo, deleteTodo, sortByDateUp, sortByDateDown } = useTaskState([]);
+  const { 
+    todos, 
+    addTodo, 
+    deleteTodo, 
+    sortByDateUp, 
+    sortByDateDown, 
+    changeStatus
+   } = useTaskState([]);
 
   const addTask = event => {
 
@@ -22,7 +29,8 @@ function App() {
     if (event.key === "Enter") {
       addTodo({
         title: titleTask,
-        date: new Date().getTime()
+        date: new Date().getTime(),
+        isDone: false
       });
       setTitleTask('');
     }
@@ -40,9 +48,9 @@ function App() {
           <button>Done</button>
           <button>Undone</button>
         </div>
-        <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown}/>
+        <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
       </div>
-      <TaskList tasks={todos} deleteTask={deleteTodo} />
+      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} />
     </div>
   );
 }

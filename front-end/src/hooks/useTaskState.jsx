@@ -22,6 +22,11 @@ export default initialValue => {
             const newTodos = [...todos].sort((a ,b) => a.date - b.date);
 
             setTodos(newTodos);
+        },
+        changeStatus: todoIndex => {
+            const newTodos = [...todos];
+            newTodos[todoIndex].isDone = !newTodos[todoIndex].isDone;
+            setTodos(newTodos);
         }
     };
 };

@@ -11,7 +11,7 @@ const error = text => {
     message.error(text);
 };
 
-export default function Task( { task, saveTitle, changeStatus, deleteCallback, isValidTitle }) {
+export default function Task({ task, saveTitle, changeStatus, deleteCallback, isValidTitle }) {
     const [editStatus, setEditStatus] = useState(false);
     const [editText, setEditText] = useState(task.title);
 
@@ -22,15 +22,19 @@ export default function Task( { task, saveTitle, changeStatus, deleteCallback, i
     const handleInput = event => {
         if (event.key === "Enter") {
             const validResult = isValidTitle(editText);
-            console.log(validResult);
-            if(!validResult.result) {
+
+            if (!validResult.result) {
                 error(validResult.message);
+                return;
             }
-            else {
-                saveTitle(task.id, editText);
-                setEditStatus(false);
-            }
-        } else if (event.key === "Escape") {
+
+            saveTitle(task.id, editText);
+            setEditStatus(false);
+            
+            return;
+        } 
+        
+        if (event.key === "Escape") {
             setEditText(task.title);
             setEditStatus(false);
         }

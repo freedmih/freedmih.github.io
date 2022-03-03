@@ -87,9 +87,11 @@ function App() {
 
   const isEmptyPage = () => {
     const countOfTasks = filteredTasks().slice(page * Constants.MAX_TASKS_PER_PAGE, page * Constants.MAX_TASKS_PER_PAGE + Constants.MAX_TASKS_PER_PAGE).length;
+    
     if (countOfTasks === 0 && page > 0) {
       return true;
     }
+
     return false;
   }
 

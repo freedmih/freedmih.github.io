@@ -14,12 +14,18 @@ export default initialValue => {
             setTodos(newTodos);
         },
         sortByDate: direction => {
-            if(direction === Constants.DATE_FILTER_DIRECTION_UP)
+            if(direction === Constants.DATE_FILTER_DIRECTION_UP) {
                 var newTodos = [...todos].sort((a, b) => b.date - a.date);
-            else
+                setTodos(newTodos);
+                return;
+            }
+
+            if(direction === Constants.DATE_FILTER_DIRECTION_DOWN) {
                 var newTodos = [...todos].sort((a, b) => a.date - b.date);                
-            
-            setTodos(newTodos);
+                setTodos(newTodos);
+                return;
+            }
+
         },
         changeStatus: todoIndex => {
             const newTodos = [...todos];

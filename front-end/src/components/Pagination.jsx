@@ -13,9 +13,9 @@ export default function Pagination({ count, activePage, setActivePage }) {
     return (
         <div class="pagination">
             <button onClick={() => setActivePage(0)}>{'<<'}</button>
-
+            <button disabled={activePage <= 0} onClick={() => setActivePage(activePage - 1)}>{'<'}</button>
             {pageButtons}
-
+            <button disabled={activePage >= lastPage - 1} onClick={() => setActivePage(activePage + 1)}>{'>'}</button>
             <button onClick={() => setActivePage(lastPage - 1)}>{'>>'}</button>
         </div>
     )

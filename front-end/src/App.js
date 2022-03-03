@@ -12,6 +12,7 @@ import Pagination from './components/Pagination';
 import { Constants } from "./constants";
 import FilterButtons from './components/FilterButtons';
 import FormInput from './components/FormInput';
+import { GetIntDateNow } from './utils/date';
 
 function App() {
 
@@ -39,7 +40,7 @@ function App() {
       addTodo({
         id: index,
         title: titleTask,
-        date: new Date().getTime(),
+        date: GetIntDateNow(),
         isDone: false
       });
       return ++prevIndex;

@@ -6,8 +6,7 @@ export default function TaskList({ tasks, deleteTask, changeStatus, page, saveTi
         <div className="Tasks">
             {
                 tasks.slice(page * Constants.MAX_TASKS_PER_PAGE, page * Constants.MAX_TASKS_PER_PAGE + Constants.MAX_TASKS_PER_PAGE).map(task =>
-                <Task key={task.id} id={task.id} title={task.title} date={task.date} deleteCallback={deleteTask} changeStatus={changeStatus} isDone={task.isDone}
-                    saveTitle={saveTitle}
+                <Task key={task.id} task={task} deleteCallback={deleteTask} changeStatus={changeStatus} saveTitle={saveTitle}
                     />)
             }
         </div>

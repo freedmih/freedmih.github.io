@@ -24,8 +24,7 @@ function App() {
     todos,
     addTodo,
     deleteTodo,
-    sortByDateUp,
-    sortByDateDown,
+    sortByDate,
     changeStatus,
     saveTitle,
     getOnlyDoneTasks,
@@ -87,7 +86,7 @@ function App() {
       <FormInput addTask={addTask} />
       <div className="control-container">
         <FilterButtons filter={filter} changeFilter={changeFilter} />
-        <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
+        <SortButtons sortByDate={sortByDate} />
       </div>
       <TaskList deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks={filteredTasks()} />
       {footer}

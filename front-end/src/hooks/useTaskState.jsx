@@ -14,18 +14,16 @@ export default initialValue => {
             setTodos(newTodos);
         },
         sortByDate: direction => {
-            if(direction === Constants.DATE_FILTER_DIRECTION_UP) {
+            if (direction === Constants.DATE_FILTER_DIRECTION_UP) {
                 var newTodos = [...todos].sort((a, b) => b.date - a.date);
                 setTodos(newTodos);
                 return;
             }
 
-            if(direction === Constants.DATE_FILTER_DIRECTION_DOWN) {
-                var newTodos = [...todos].sort((a, b) => a.date - b.date);                
+            if (direction === Constants.DATE_FILTER_DIRECTION_DOWN) {
+                var newTodos = [...todos].sort((a, b) => a.date - b.date);
                 setTodos(newTodos);
-                return;
             }
-
         },
         changeStatus: todoIndex => {
             const newTodos = [...todos];
@@ -46,13 +44,14 @@ export default initialValue => {
             return todos.filter(task => !task.isDone);
         },
         isValidTitle: title => {
-            if(title.trim().length === 0) {
+            if (title.trim().length === 0) {
                 return {
                     result: false,
                     message: Constants.ERROR_EMPTY_TASK
                 }
             }
-            else if(todos.findIndex(task => task.title === title) > -1) {
+            
+            if (todos.findIndex(task => task.title === title) > -1) {
                 return {
                     result: false,
                     message: Constants.ERROR_DUPLICATE_TASK

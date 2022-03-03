@@ -5,22 +5,19 @@ import TaskList from "./components/TaskList";
 import useTaskState from "./hooks/useTaskState";
 
 import React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import SortButtons from './components/SortButtons';
 import Pagination from './components/Pagination';
 
-import { AppContext } from "./Context";
+import { Constants } from "./constants";
 import FilterButtons from './components/FilterButtons';
 import FormInput from './components/FormInput';
 
 function App() {
 
-  const Context = useContext(AppContext);
-
-  //const [titleTask, setTitleTask] = useState('');
   const [index, setIndex] = useState(0);
-  const [filter, setFilter] = useState(Context.FILTER_ALL);
-  const [page, setPage] = useState(Context.FIRST_PAGE_INDEX);
+  const [filter, setFilter] = useState(Constants.FILTER_ALL);
+  const [page, setPage] = useState(Constants.FIRST_PAGE_INDEX);
 
   const {
     todos,
@@ -52,24 +49,24 @@ function App() {
   }
 
   const changeFilter = current => {
-    setPage(Context.FIRST_PAGE_INDEX);
+    setPage(Constants.FIRST_PAGE_INDEX);
     setFilter(current);
   }
 
   const filteredTasks = () => {
     switch (filter) {
-      case Context.FILTER_ALL:
+      case Constants.FILTER_ALL:
         return todos;
-      case Context.FILTER_DONE:
+      case Constants.FILTER_DONE:
         return getOnlyDoneTasks();
-      case Context.FILTER_UNDONE:
+      case Constants.FILTER_UNDONE:
         return getOnlyUnDoneTasks();
       default:
         return todos;
     }
   }
 
-  const footer = filteredTasks().length > Context.MAX_TASKS_PER_PAGE ? <Pagination count={filteredTasks().length} activePage={page} setActivePage={setPage} /> : <></>
+  const footer = filteredTasks().length > Constants.MAX_TASKS_PER_PAGE ? <Pagination count={filteredTasks().length} activePage={page} setActivePage={setPage} /> : <></>
 
   return (
     <div className="App">

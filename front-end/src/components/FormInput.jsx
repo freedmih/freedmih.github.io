@@ -1,14 +1,14 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
-import { AppSettings } from "../constants";
+import { Constants } from "../constants";
 
 export default function FormInput({ addTask }) {
-    const [titleTask, setTitleTask] = useState(AppSettings.EMPTY_STRING);
+    const [titleTask, setTitleTask] = useState(Constants.EMPTY_STRING);
 
     const handleKeyDown = event => {
-        if(event.key == 'Enter') {
+        if(event.key === 'Enter') {
             if(addTask(titleTask))
-                setTitleTask(AppSettings.EMPTY_STRING);
+                setTitleTask(Constants.EMPTY_STRING);
         }
     }
 

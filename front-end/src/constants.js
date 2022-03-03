@@ -1,4 +1,4 @@
-export const AppSettings = {
+export const Constants = {
     EMPTY_STRING: '',
 
     FIRST_PAGE_INDEX: 0,

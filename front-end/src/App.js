@@ -69,6 +69,18 @@ function App() {
 
   const footer = filteredTasks().length > Constants.MAX_TASKS_PER_PAGE ? <Pagination count={filteredTasks().length} activePage={page} setActivePage={setPage} /> : <></>
 
+  const isEmptyPage = () => {
+    const countOfTasks = filteredTasks().slice(page * Constants.MAX_TASKS_PER_PAGE, page * Constants.MAX_TASKS_PER_PAGE + Constants.MAX_TASKS_PER_PAGE).length;
+    if(countOfTasks === 0 && page > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  if(isEmptyPage()) {
+    setPage(page => page - 1);
+  }
+
   return (
     <div className="App">
       <h1>Todo</h1>

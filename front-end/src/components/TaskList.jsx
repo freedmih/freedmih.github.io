@@ -2,7 +2,6 @@ import Task from "./Task";
 import { Constants } from "../constants";
 
 export default function TaskList({ tasks, deleteTask, changeStatus, page, saveTitle }) {
-
     return (
         <div className="Tasks">
             {

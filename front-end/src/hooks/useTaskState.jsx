@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Constants } from '../constants';
 
 export default initialValue => {
     const [todos, setTodos] = useState(initialValue);
@@ -12,14 +13,12 @@ export default initialValue => {
             const newTodos = todos.filter((todo) => todo.id !== todoIndex);
             setTodos(newTodos);
         },
-        sortByDateUp: () => {
-            const newTodos = [...todos].sort((a ,b) => b.date - a.date);
-
-            setTodos(newTodos);
-        },
-        sortByDateDown: () => {
-            const newTodos = [...todos].sort((a ,b) => a.date - b.date);
-
+        sortByDate: direction => {
+            if(direction === Constants.DATE_FILTER_DIRECTION_UP)
+                var newTodos = [...todos].sort((a, b) => b.date - a.date);
+            else
+                var newTodos = [...todos].sort((a, b) => a.date - b.date);                
+            
             setTodos(newTodos);
         },
         changeStatus: todoIndex => {

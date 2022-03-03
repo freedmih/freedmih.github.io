@@ -1,7 +1,7 @@
-import upArrow from './../upArrow.svg';
-import downArrow from './../downArrow.svg';
+import upArrow from './../svg/upArrow.svg';
+import downArrow from './../svg/downArrow.svg';
 
-export default function ( { sortUp, sortDown } ) {
+export default function SortButtons( { sortUp, sortDown } ) {
     return (
         <div className="sort-buttons">
             <p>Sort by Date</p>

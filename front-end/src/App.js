@@ -22,7 +22,9 @@ function App() {
     sortByDateUp,
     sortByDateDown,
     changeStatus,
-    saveTitle
+    saveTitle,
+    getOnlyDoneTasks,
+    getOnlyUnDoneTasks
   } = useTaskState([]);
 
   const addTask = event => {
@@ -44,11 +46,24 @@ function App() {
   }
 
   const changeFilter = current => {
+    setPage(0);
     setFilter(current);
   }
 
+  
+  const filteredTasks = () => {
+    switch(filter) {
+      case 0:
+        return todos;
+        case 1:
+          return getOnlyDoneTasks();
+        case 2:
+          return getOnlyUnDoneTasks();
+    }
+  } 
+
   //const footer = todos.length > 5 ? <Pagination activePage={activePage}/> : <></>
-  const footer = <Pagination count={todos.length} activePage={page} setActivePage={setPage}/>
+  const footer = filteredTasks().length > 5 ? <Pagination count={filteredTasks().length} activePage={page} setActivePage={setPage}/> : <></>
 
   return (
     <div className="App">
@@ -64,7 +79,7 @@ function App() {
         </div>
         <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
       </div>  
-      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} />
+      <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks2={filteredTasks()}/>
       {footer}
     </div>
   );

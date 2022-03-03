@@ -34,5 +34,11 @@ export default initialValue => {
             newTodos[idx].title = newTitle;
             setTodos(newTodos);
         },
+        getOnlyDoneTasks: () => {
+            return todos.filter(task => task.isDone);
+        },
+        getOnlyUnDoneTasks: () => {
+            return todos.filter(task => !task.isDone);
+        }
     };
 };

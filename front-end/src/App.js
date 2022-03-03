@@ -66,6 +66,10 @@ function App() {
     }
   }
 
+  const getTasksByPage = page => {
+    return filteredTasks().slice(page * Constants.MAX_TASKS_PER_PAGE, page * Constants.MAX_TASKS_PER_PAGE + Constants.MAX_TASKS_PER_PAGE);
+  }
+
   const footer = filteredTasks().length > Constants.MAX_TASKS_PER_PAGE ? <Pagination count={filteredTasks().length} activePage={page} setActivePage={setPage} /> : <></>
 
   const isEmptyPage = () => {
@@ -88,7 +92,7 @@ function App() {
         <FilterButtons filter={filter} changeFilter={changeFilter} />
         <SortButtons sortByDate={sortByDate} />
       </div>
-      <TaskList deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks={filteredTasks()} />
+      <TaskList deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks={getTasksByPage(page)} />
       {footer}
     </div>
   );

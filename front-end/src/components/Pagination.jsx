@@ -6,6 +6,10 @@ export default function Pagination({ count, activePage, setActivePage }) {
 
     let end = start + 5 > lastPage ? lastPage : start + 5;
 
+    if(lastPage > 4 && end - start < 5) {
+        start = end - 5;
+    }
+
     for (let i = start; i < end; i++) {
         pageButtons.push(<button key={i} className={i === activePage ? "button-pag-selected" : ""} onClick={() => setActivePage(i)}>{i + 1}</button>)
     }

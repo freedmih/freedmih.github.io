@@ -1,0 +1,11 @@
+export const AppSettings = {
+    EMPTY_STRING: '',
+
+    FIRST_PAGE_INDEX: 0,
+    MAX_TASKS_PER_PAGE: 5,
+    MAX_PAGINATION_PAGES: 5,
+
+    FILTER_ALL: 'FILTER_ALL',
+    FILTER_UNDONE: 'FILTER_UNDONE',
+    FILTER_DONE: 'FILTER_DONE'
+};

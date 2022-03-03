@@ -11,12 +11,13 @@ import Pagination from './components/Pagination';
 
 import { AppContext } from "./Context";
 import FilterButtons from './components/FilterButtons';
+import FormInput from './components/FormInput';
 
 function App() {
 
   const Context = useContext(AppContext);
 
-  const [titleTask, setTitleTask] = useState('');
+  //const [titleTask, setTitleTask] = useState('');
   const [index, setIndex] = useState(0);
   const [filter, setFilter] = useState(Context.FILTER_ALL);
   const [page, setPage] = useState(Context.FIRST_PAGE_INDEX);
@@ -33,22 +34,21 @@ function App() {
     getOnlyUnDoneTasks
   } = useTaskState([]);
 
-  const addTask = event => {
+  const addTask = titleTask => {
 
-    if (titleTask.trim().length <= 0) return;
+    if (titleTask.trim().length <= 0) return false;
 
-    if (event.key === "Enter") {
-      setIndex(prevIndex => {
-        addTodo({
-          id: index,
-          title: titleTask,
-          date: new Date().getTime(),
-          isDone: false
-        });
-        return ++prevIndex;
-      })
-      setTitleTask('');
-    }
+    setIndex(prevIndex => {
+      addTodo({
+        id: index,
+        title: titleTask,
+        date: new Date().getTime(),
+        isDone: false
+      });
+      return ++prevIndex;
+    })
+    
+    return true;
   }
 
   const changeFilter = current => {
@@ -74,9 +74,10 @@ function App() {
   return (
     <div className="App">
       <h1>Todo</h1>
-      <div className="input-container">
+      <FormInput addTask={addTask} />
+      {/*       <div className="input-container">
         <input className="add-task-input" type="text" placeholder="I want to..." onKeyDown={addTask} value={titleTask} onChange={e => setTitleTask(e.target.value)} />
-      </div>
+      </div> */}
       <div className="control-container">
         <FilterButtons filter={filter} changeFilter={changeFilter} />
         <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />

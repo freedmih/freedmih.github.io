@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 * {
   font-family: 'Roboto', sans-serif;
 }
@@ -12,6 +14,10 @@
   margin: 0 auto;
   max-width: 600px;
   text-align: center;
+}
+
+.input-container {
+  margin-bottom: 20px;
 }
 
 .control-container {
@@ -43,7 +49,7 @@ input:focus {
   justify-content: space-between;
 
   border: 1px solid #d9d9d9;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .task-left, .task-right {

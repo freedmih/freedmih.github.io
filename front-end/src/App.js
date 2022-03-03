@@ -14,6 +14,12 @@ import FilterButtons from './components/FilterButtons';
 import FormInput from './components/FormInput';
 import { GetIntDateNow } from './utils/date';
 
+import { message, Button, Space } from 'antd';
+
+const error = text => {
+    message.error(text);
+};
+
 function App() {
 
   const [index, setIndex] = useState(0);
@@ -28,12 +34,19 @@ function App() {
     changeStatus,
     saveTitle,
     getOnlyDoneTasks,
-    getOnlyUnDoneTasks
+    getOnlyUnDoneTasks,
+    isValidTitle
   } = useTaskState([]);
+
 
   const addTask = titleTask => {
 
-    if (titleTask.trim().length <= 0) return false;
+    const validResult = isValidTitle(titleTask);
+
+    if (!validResult.result) {
+      error(validResult.message);
+      return false;
+    }
 
     setIndex(prevIndex => {
       addTodo({
@@ -44,7 +57,7 @@ function App() {
       });
       return ++prevIndex;
     })
-    
+
     return true;
   }
 
@@ -74,13 +87,13 @@ function App() {
 
   const isEmptyPage = () => {
     const countOfTasks = filteredTasks().slice(page * Constants.MAX_TASKS_PER_PAGE, page * Constants.MAX_TASKS_PER_PAGE + Constants.MAX_TASKS_PER_PAGE).length;
-    if(countOfTasks === 0 && page > 0) {
+    if (countOfTasks === 0 && page > 0) {
       return true;
     }
     return false;
   }
 
-  if(isEmptyPage()) {
+  if (isEmptyPage()) {
     setPage(page => page - 1);
   }
 
@@ -92,7 +105,7 @@ function App() {
         <FilterButtons filter={filter} changeFilter={changeFilter} />
         <SortButtons sortByDate={sortByDate} />
       </div>
-      <TaskList deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks={getTasksByPage(page)} />
+      <TaskList isValidTitle={isValidTitle} deleteTask={deleteTodo} changeStatus={changeStatus} saveTitle={saveTitle} tasks={getTasksByPage(page)} />
       {footer}
     </div>
   );

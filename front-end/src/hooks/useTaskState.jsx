@@ -38,6 +38,24 @@ export default initialValue => {
         },
         getOnlyUnDoneTasks: () => {
             return todos.filter(task => !task.isDone);
+        },
+        isValidTitle: title => {
+            if(title.trim().length === 0) {
+                return {
+                    result: false,
+                    message: Constants.ERROR_EMPTY_TASK
+                }
+            }
+            else if(todos.findIndex(task => task.title === title) > -1) {
+                return {
+                    result: false,
+                    message: Constants.ERROR_DUPLICATE_TASK
+                }
+            }
+
+            return {
+                result: true
+            };
         }
     };
 };

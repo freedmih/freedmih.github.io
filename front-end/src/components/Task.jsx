@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { GetStringDateByTime } from "../utils/date";
 
-const GetMarkedTitle = (title, isDone) => isDone ? <s>{title}</s> : <p>{title}</p>
+import { Constants } from "../constants";
 
-export default function Task( { task, saveTitle, changeStatus, deleteCallback }) {
+import { message, Button, Space } from 'antd';
+
+const GetMarkedTitle = (title, isDone) => isDone ? <s>{title}</s> : <>{title}</>
+
+const error = text => {
+    message.error(text);
+};
+
+export default function Task( { task, saveTitle, changeStatus, deleteCallback, isValidTitle }) {
     const [editStatus, setEditStatus] = useState(false);
     const [editText, setEditText] = useState(task.title);
 
@@ -13,8 +21,15 @@ export default function Task( { task, saveTitle, changeStatus, deleteCallback })
 
     const handleInput = event => {
         if (event.key === "Enter") {
-            saveTitle(task.id, editText);
-            setEditStatus(false);
+            const validResult = isValidTitle(editText);
+            console.log(validResult);
+            if(!validResult.result) {
+                error(validResult.message);
+            }
+            else {
+                saveTitle(task.id, editText);
+                setEditStatus(false);
+            }
         } else if (event.key === "Escape") {
             setEditText(task.title);
             setEditStatus(false);
@@ -33,7 +48,7 @@ export default function Task( { task, saveTitle, changeStatus, deleteCallback })
                 {details}
             </div>
             <div className="task-right">
-                {<p>{GetStringDateByTime(task.date)}</p>}
+                {GetStringDateByTime(task.date)}
                 <button className="btn-delete-task" onClick={() => deleteCallback(task.id)}>Delete</button>
             </div>
         </div>

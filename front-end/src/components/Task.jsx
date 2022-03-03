@@ -21,7 +21,6 @@ export default function Task(props) {
         }
     }
 
-
     const details = editStatus ?
         <input onBlur={() => setEditStatus(false)} autoFocus type="text" className="edit-task-input" onKeyDown={e => handleInput(e)}
             value={editText} onChange={e => setEditText(e.target.value)} />

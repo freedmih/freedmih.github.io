@@ -72,9 +72,6 @@ function App() {
     <div className="App">
       <h1>Todo</h1>
       <FormInput addTask={addTask} />
-      {/*       <div className="input-container">
-        <input className="add-task-input" type="text" placeholder="I want to..." onKeyDown={addTask} value={titleTask} onChange={e => setTitleTask(e.target.value)} />
-      </div> */}
       <div className="control-container">
         <FilterButtons filter={filter} changeFilter={changeFilter} />
         <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />

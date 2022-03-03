@@ -9,8 +9,8 @@ export default function Pagination({ count, activePage, setActivePage }) {
     const buttonsInfo = useMemo(() => {
         const pageButtons = [];
 
-        let start = activePage > 1 ? activePage - 2 : 0;
-        let lastPage = Math.ceil(count / Context.MAX_PAGINATION_PAGES);
+        let start = activePage > 1 ? activePage - 2 : Context.FIRST_PAGE_INDEX;
+        let lastPage = Math.ceil(count / Context.MAX_TASKS_PER_PAGE);
     
         let end = start + Context.MAX_PAGINATION_PAGES > lastPage ? lastPage : start + Context.MAX_PAGINATION_PAGES;
     
@@ -26,12 +26,12 @@ export default function Pagination({ count, activePage, setActivePage }) {
             buttons: pageButtons,
             lastPage
         }
-    }, [activePage, count, Context.MAX_PAGINATION_PAGES, setActivePage]);
+    }, [activePage, count, Context.MAX_PAGINATION_PAGES, Context.FIRST_PAGE_INDEX, Context.MAX_TASKS_PER_PAGE, setActivePage]);
 
     return (
         <div className="pagination">
-            <button onClick={() => setActivePage(0)}>{'<<'}</button>
-            <button disabled={activePage <= 0} onClick={() => setActivePage(activePage - 1)}>{'<'}</button>
+            <button onClick={() => setActivePage(Context.FIRST_PAGE_INDEX)}>{'<<'}</button>
+            <button disabled={activePage <= Context.FIRST_PAGE_INDEX} onClick={() => setActivePage(activePage - 1)}>{'<'}</button>
             {buttonsInfo.buttons}
             <button disabled={activePage >= buttonsInfo.lastPage - 1} onClick={() => setActivePage(activePage + 1)}>{'>'}</button>
             <button onClick={() => setActivePage(buttonsInfo.lastPage - 1)}>{'>>'}</button>

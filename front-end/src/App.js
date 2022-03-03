@@ -5,7 +5,7 @@ import TaskList from "./components/TaskList";
 import useTaskState from "./hooks/useTaskState";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import SortButtons from './components/SortButtons';
 import Pagination from './components/Pagination';
 
@@ -13,10 +13,12 @@ import { AppContext } from "./Context";
 
 function App() {
 
+  const Context = useContext(AppContext);
+
   const [titleTask, setTitleTask] = useState('');
   const [index, setIndex] = useState(0);
-  const [filter, setFilter] = useState(0);
-  const [page, setPage] = useState(0);
+  const [filter, setFilter] = useState(Context.FILTER_ALL);
+  const [page, setPage] = useState(Context.FIRST_PAGE_INDEX);
 
   const {
     todos,
@@ -32,7 +34,7 @@ function App() {
 
   const addTask = event => {
 
-    if (titleTask.trim() === "") return;
+    if (titleTask.trim().length <= 0) return;
 
     if (event.key === "Enter") {
       setIndex(prevIndex => {
@@ -49,28 +51,29 @@ function App() {
   }
 
   const changeFilter = current => {
-    setPage(0);
+    setPage(Context.FIRST_PAGE_INDEX);
     setFilter(current);
   }
 
 
   const filteredTasks = () => {
     switch (filter) {
-      case 0:
+      case Context.FILTER_ALL:
         return todos;
-      case 1:
+      case Context.FILTER_DONE:
         return getOnlyDoneTasks();
-      case 2:
+      case Context.FILTER_UNDONE:
         return getOnlyUnDoneTasks();
       default:
         return todos;
     }
   }
 
-  const footer = filteredTasks().length > 5 ? <Pagination count={filteredTasks().length} activePage={page} setActivePage={setPage} /> : <></>
+  const footer = filteredTasks().length > Context.MAX_TASKS_PER_PAGE ? <Pagination count={filteredTasks().length} activePage={page} setActivePage={setPage} /> : <></>
+  
+
 
   return (
-    <AppContext.Provider>
       <div className="App">
         <h1>Todo</h1>
         <div className="input-container">
@@ -78,16 +81,15 @@ function App() {
         </div>
         <div className="control-container">
           <div className="control-buttons">
-            <button className={filter === 0 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(0)}>All</button>
-            <button className={filter === 1 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(1)}>Done</button>
-            <button className={filter === 2 ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(2)}>Undone</button>
+            <button className={filter === Context.FILTER_ALL ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(Context.FILTER_ALL)}>All</button>
+            <button className={filter === Context.FILTER_DONE ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(Context.FILTER_DONE)}>Done</button>
+            <button className={filter === Context.FILTER_UNDONE ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(Context.FILTER_UNDONE)}>Undone</button>
           </div>
           <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
         </div>
-        <TaskList tasks={todos} deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks2={filteredTasks()} />
+        <TaskList deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks={filteredTasks()} />
         {footer}
       </div>
-    </AppContext.Provider>
   );
 }
 

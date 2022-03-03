@@ -9,7 +9,8 @@ import { useState, useContext } from "react";
 import SortButtons from './components/SortButtons';
 import Pagination from './components/Pagination';
 
-import { AppContext } from "./Context"; 
+import { AppContext } from "./Context";
+import FilterButtons from './components/FilterButtons';
 
 function App() {
 
@@ -55,7 +56,6 @@ function App() {
     setFilter(current);
   }
 
-
   const filteredTasks = () => {
     switch (filter) {
       case Context.FILTER_ALL:
@@ -70,26 +70,20 @@ function App() {
   }
 
   const footer = filteredTasks().length > Context.MAX_TASKS_PER_PAGE ? <Pagination count={filteredTasks().length} activePage={page} setActivePage={setPage} /> : <></>
-  
-
 
   return (
-      <div className="App">
-        <h1>Todo</h1>
-        <div className="input-container">
-          <input className="add-task-input" type="text" placeholder="I want to..." onKeyDown={addTask} value={titleTask} onChange={e => setTitleTask(e.target.value)} />
-        </div>
-        <div className="control-container">
-          <div className="control-buttons">
-            <button className={filter === Context.FILTER_ALL ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(Context.FILTER_ALL)}>All</button>
-            <button className={filter === Context.FILTER_DONE ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(Context.FILTER_DONE)}>Done</button>
-            <button className={filter === Context.FILTER_UNDONE ? "control-button control-button-selected" : "control-button"} onClick={() => changeFilter(Context.FILTER_UNDONE)}>Undone</button>
-          </div>
-          <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
-        </div>
-        <TaskList deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks={filteredTasks()} />
-        {footer}
+    <div className="App">
+      <h1>Todo</h1>
+      <div className="input-container">
+        <input className="add-task-input" type="text" placeholder="I want to..." onKeyDown={addTask} value={titleTask} onChange={e => setTitleTask(e.target.value)} />
       </div>
+      <div className="control-container">
+        <FilterButtons filter={filter} changeFilter={changeFilter} />
+        <SortButtons sortUp={sortByDateUp} sortDown={sortByDateDown} />
+      </div>
+      <TaskList deleteTask={deleteTodo} changeStatus={changeStatus} filter={filter} page={page} saveTitle={saveTitle} tasks={filteredTasks()} />
+      {footer}
+    </div>
   );
 }
 

@@ -4,7 +4,7 @@ import TaskList from "./components/TaskList";
 
 import useTaskState from "./hooks/useTaskState";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import SortButtons from './components/SortButtons';
 import Pagination from './components/Pagination';
@@ -17,7 +17,7 @@ import { GetIntDateNow } from './utils/date';
 import { message, Button, Space } from 'antd';
 
 const error = text => {
-    message.error(text);
+  message.error(text);
 };
 
 function App() {
@@ -25,6 +25,8 @@ function App() {
   const [index, setIndex] = useState(0);
   const [filter, setFilter] = useState(Constants.FILTER_ALL);
   const [page, setPage] = useState(Constants.FIRST_PAGE_INDEX);
+
+  const [ sortType, setSortType ] = useState(Constants.DATE_FILTER_DIRECTION_DOWN);
 
   const {
     todos,
@@ -36,6 +38,8 @@ function App() {
     getOnlyUnDoneTasks,
     isValidTitle
   } = useTaskState([]);
+
+  useEffect(() => sortByDate(sortType), [sortType]);
 
 
   const addTask = titleTask => {
@@ -86,7 +90,7 @@ function App() {
 
   const isEmptyPage = () => {
     const countOfTasks = filteredTasks().slice(page * Constants.MAX_TASKS_PER_PAGE, page * Constants.MAX_TASKS_PER_PAGE + Constants.MAX_TASKS_PER_PAGE).length;
-    
+
     if (countOfTasks === 0 && page > 0) {
       return true;
     }
@@ -104,7 +108,7 @@ function App() {
       <FormInput addTask={addTask} />
       <div className="control-container">
         <FilterButtons filter={filter} changeFilter={changeFilter} />
-        <SortButtons sortByDate={sortByDate} />
+        <SortButtons setSortType={setSortType} />
       </div>
       <TaskList isValidTitle={isValidTitle} deleteTask={deleteTodo} updateTodo={updateTodo} tasks={getTasksByPage(page)} />
       {footer}

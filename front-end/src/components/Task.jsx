@@ -11,7 +11,7 @@ const error = text => {
     message.error(text);
 };
 
-export default function Task({ task, saveTitle, changeStatus, deleteCallback, isValidTitle }) {
+export default function Task({ task, updateTodo, deleteCallback, isValidTitle }) {
     const [editStatus, setEditStatus] = useState(false);
     const [editText, setEditText] = useState(task.title);
 
@@ -28,7 +28,11 @@ export default function Task({ task, saveTitle, changeStatus, deleteCallback, is
                 return;
             }
 
-            saveTitle(task.id, editText);
+            //saveTitle(task.id, editText);
+            updateTodo(task.id, {
+                title: editText
+            });
+
             setEditStatus(false);
             
             return;
@@ -48,7 +52,7 @@ export default function Task({ task, saveTitle, changeStatus, deleteCallback, is
     return (
         <div className="task" onClick={() => toggleEditMode()}>
             <div className="task-left">
-                <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={(e) => changeStatus(task.id)} checked={task.isDone} />
+                <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={() => updateTodo(task.id, { isDone: !task.isDone })} checked={task.isDone} />
                 {details}
             </div>
             <div className="task-right">

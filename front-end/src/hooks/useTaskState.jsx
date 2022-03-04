@@ -25,7 +25,14 @@ export default initialValue => {
                 setTodos(newTodos);
             }
         },
-        changeStatus: todoIndex => {
+        updateTodo: (todoIndex, todo = {}) => {
+            const newTodos = [...todos];
+            const idx = todos.findIndex(task => task.id === todoIndex);
+            newTodos[idx] = { ...todos[idx], ...todo };
+            setTodos(newTodos);
+        }
+        ,
+/*         changeStatus: todoIndex => {
             const newTodos = [...todos];
             const idx = todos.findIndex(task => task.id === todoIndex);
             newTodos[idx].isDone = !newTodos[idx].isDone;
@@ -36,7 +43,7 @@ export default initialValue => {
             const idx = todos.findIndex(task => task.id === todoIndex);
             newTodos[idx].title = newTitle;
             setTodos(newTodos);
-        },
+        }, */
         getOnlyDoneTasks: () => {
             return todos.filter(task => task.isDone);
         },

@@ -31,8 +31,7 @@ function App() {
     addTodo,
     deleteTodo,
     sortByDate,
-    changeStatus,
-    saveTitle,
+    updateTodo,
     getOnlyDoneTasks,
     getOnlyUnDoneTasks,
     isValidTitle
@@ -107,7 +106,7 @@ function App() {
         <FilterButtons filter={filter} changeFilter={changeFilter} />
         <SortButtons sortByDate={sortByDate} />
       </div>
-      <TaskList isValidTitle={isValidTitle} deleteTask={deleteTodo} changeStatus={changeStatus} saveTitle={saveTitle} tasks={getTasksByPage(page)} />
+      <TaskList isValidTitle={isValidTitle} deleteTask={deleteTodo} updateTodo={updateTodo} tasks={getTasksByPage(page)} />
       {footer}
     </div>
   );

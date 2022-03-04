@@ -45,7 +45,9 @@ export default function Task({ task, updateTodo, deleteTask, isValidTitle }) {
 
     const handleDelete = (e, uuid) => {
         e.stopPropagation();
-        deleteTask(uuid);
+        if(deleteTask(uuid)) {
+            
+        }
     }
 
     const details = editStatus ?

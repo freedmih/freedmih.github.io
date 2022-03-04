@@ -98,7 +98,6 @@ function App() {
   }, [limitedTasks]);
 
   const addTask = titleTask => {
-
     const validResult = isValidTitle(titleTask);
 
     if (!validResult.result) {
@@ -106,12 +105,16 @@ function App() {
       return false;
     }
 
-    API.post(`tasks/${USER_ID}`, {
+    return API.post(`task/${USER_ID}`, {
       name: titleTask,
       done: false
     })
     .then(res => {
-
+      return true;
+    })
+    .catch(err => {
+      error(err.response.data.message);
+      return false;
     });
 
 /*     setIndex(prevIndex => {
@@ -123,8 +126,6 @@ function App() {
       });
       return ++prevIndex;
     }) */
-
-    return true;
   }
 
   const deleteTask = uuid => {

@@ -7,8 +7,11 @@ export default function FormInput({ addTask }) {
 
     const handleKeyDown = event => {
         if (event.key === 'Enter') {
-            if (addTask(titleTask))
-                setTitleTask(Constants.EMPTY_STRING);
+            const addRes = addTask(titleTask);
+            addRes.then(hasAdded => {
+                if(hasAdded) 
+                    setTitleTask(Constants.EMPTY_STRING);
+            })
         }
     }
 

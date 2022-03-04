@@ -11,7 +11,7 @@ const error = text => {
     message.error(text);
 };
 
-export default function Task({ task, updateTodo, deleteTask, isValidTitle }) {
+export default function Task({ task, updateTask, deleteTask, isValidTitle }) {
     const [editStatus, setEditStatus] = useState(false);
     const [editText, setEditText] = useState(task.name);
 
@@ -28,7 +28,8 @@ export default function Task({ task, updateTodo, deleteTask, isValidTitle }) {
                 return;
             }
 
-            updateTodo(task.uuid, {
+            updateTask({
+                uuid: task.uuid,
                 name: editText
             });
 
@@ -45,9 +46,7 @@ export default function Task({ task, updateTodo, deleteTask, isValidTitle }) {
 
     const handleDelete = (e, uuid) => {
         e.stopPropagation();
-        if(deleteTask(uuid)) {
-            
-        }
+        deleteTask(uuid);
     }
 
     const details = editStatus ?
@@ -58,7 +57,7 @@ export default function Task({ task, updateTodo, deleteTask, isValidTitle }) {
     return (
         <div className="task" onClick={() => toggleEditMode()}>
             <div className="task-left">
-                <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={() => updateTodo(task.uuid, { done: !task.done })} checked={task.done} />
+                <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={() => updateTask({uuid: task.uuid,  done: !task.done })} checked={task.done} />
                 {details}
             </div>
             <div className="task-right">

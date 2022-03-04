@@ -8,8 +8,8 @@ export default function Pagination({ count, activePage, setActivePage }) {
     const buttonsInfo = useMemo(() => {
         const pageButtons = [];
 
-        let start = activePage > 1 ? activePage - 2 : Constants.FIRST_PAGE_INDEX;
-        let lastPage = Math.ceil(count / Constants.MAX_TASKS_PER_PAGE);
+        let start = activePage > 2 ? activePage - 2 : Constants.FIRST_PAGE_INDEX;
+        let lastPage = Math.ceil(count / Constants.MAX_TASKS_PER_PAGE) + 1;
 
         let end = start + Constants.MAX_PAGINATION_PAGES > lastPage ? lastPage : start + Constants.MAX_PAGINATION_PAGES;
 
@@ -18,7 +18,8 @@ export default function Pagination({ count, activePage, setActivePage }) {
         }
 
         for (let i = start; i < end; i++) {
-            pageButtons.push(<button key={i} className={GetPaginationButtonStyle(i === activePage)} onClick={() => setActivePage(i)}>{i + 1}</button>)
+            if(i === 0) continue;
+            pageButtons.push(<button key={i} className={GetPaginationButtonStyle(i === activePage)} onClick={() => setActivePage(i)}>{i}</button>)
         }
 
         return {

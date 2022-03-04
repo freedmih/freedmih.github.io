@@ -5,7 +5,7 @@ export default function TaskList({ tasks, deleteTask, updateTodo, isValidTitle})
         <div className="Tasks">
             {
                 tasks.map(task =>
-                    <Task key={task.id} isValidTitle={isValidTitle} task={task} deleteCallback={deleteTask} updateTodo={updateTodo}/>)
+                    <Task key={task.uuid} isValidTitle={isValidTitle} task={task} deleteTask={deleteTask} updateTodo={updateTodo}/>)
             }
         </div>
     )

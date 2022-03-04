@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { GetStringDateByTime } from "../utils/date";
 
-import { Constants } from "../constants";
+import { message } from 'antd';
 
-import { message, Button, Space } from 'antd';
+import API from './../api/api';
 
 const GetMarkedTitle = (title, isDone) => isDone ? <s>{title}</s> : <>{title}</>
 
@@ -11,9 +11,9 @@ const error = text => {
     message.error(text);
 };
 
-export default function Task({ task, updateTodo, deleteCallback, isValidTitle }) {
+export default function Task({ task, updateTodo, deleteTask, isValidTitle }) {
     const [editStatus, setEditStatus] = useState(false);
-    const [editText, setEditText] = useState(task.title);
+    const [editText, setEditText] = useState(task.name);
 
     const toggleEditMode = () => {
         setEditStatus(true);
@@ -28,9 +28,8 @@ export default function Task({ task, updateTodo, deleteCallback, isValidTitle })
                 return;
             }
 
-            //saveTitle(task.id, editText);
-            updateTodo(task.id, {
-                title: editText
+            updateTodo(task.uuid, {
+                name: editText
             });
 
             setEditStatus(false);
@@ -39,25 +38,30 @@ export default function Task({ task, updateTodo, deleteCallback, isValidTitle })
         } 
         
         if (event.key === "Escape") {
-            setEditText(task.title);
+            setEditText(task.name);
             setEditStatus(false);
         }
+    }
+
+    const handleDelete = (e, uuid) => {
+        e.stopPropagation();
+        deleteTask(uuid);
     }
 
     const details = editStatus ?
         <input onBlur={() => setEditStatus(false)} autoFocus type="text" className="edit-task-input" onKeyDown={e => handleInput(e)}
             value={editText} onChange={e => setEditText(e.target.value)} />
-        : GetMarkedTitle(task.title, task.isDone)
+        : GetMarkedTitle(task.name, task.done)
 
     return (
         <div className="task" onClick={() => toggleEditMode()}>
             <div className="task-left">
-                <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={() => updateTodo(task.id, { isDone: !task.isDone })} checked={task.isDone} />
+                <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={() => updateTodo(task.uuid, { done: !task.done })} checked={task.done} />
                 {details}
             </div>
             <div className="task-right">
-                {GetStringDateByTime(task.date)}
-                <button className="btn-delete-task" onClick={() => deleteCallback(task.id)}>Delete</button>
+                {GetStringDateByTime(task.createdAt)}
+                <button className="btn-delete-task" onClick={e => handleDelete(e, task.uuid)}>Delete</button>
             </div>
         </div>
     )

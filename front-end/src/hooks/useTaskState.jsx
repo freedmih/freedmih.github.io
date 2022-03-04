@@ -6,49 +6,39 @@ export default initialValue => {
 
     return {
         todos,
+        loadTodos: todos => {
+            setTodos(todos);
+        },
         addTodo: todoObject => {
             setTodos([...todos, todoObject]);
         },
         deleteTodo: todoIndex => {
-            const newTodos = todos.filter((todo) => todo.id !== todoIndex);
+            const newTodos = todos.filter((todo) => todo.uuid !== todoIndex);
             setTodos(newTodos);
         },
         sortByDate: direction => {
             if (direction === Constants.DATE_FILTER_DIRECTION_UP) {
-                var newTodos = [...todos].sort((a, b) => b.date - a.date);
+                var newTodos = [...todos].sort((a, b) => b.createdAt - a.createdAt);
                 setTodos(newTodos);
                 return;
             }
 
             if (direction === Constants.DATE_FILTER_DIRECTION_DOWN) {
-                var newTodos = [...todos].sort((a, b) => a.date - b.date);
+                var newTodos = [...todos].sort((a, b) => a.createdAt - b.createdAt);
                 setTodos(newTodos);
             }
         },
         updateTodo: (todoIndex, todo = {}) => {
             const newTodos = [...todos];
-            const idx = todos.findIndex(task => task.id === todoIndex);
+            const idx = todos.findIndex(task => task.uuid === todoIndex);
             newTodos[idx] = { ...todos[idx], ...todo };
             setTodos(newTodos);
-        }
-        ,
-/*         changeStatus: todoIndex => {
-            const newTodos = [...todos];
-            const idx = todos.findIndex(task => task.id === todoIndex);
-            newTodos[idx].isDone = !newTodos[idx].isDone;
-            setTodos(newTodos);
         },
-        saveTitle: (todoIndex, newTitle) => {
-            const newTodos = [...todos];
-            const idx = todos.findIndex(task => task.id === todoIndex);
-            newTodos[idx].title = newTitle;
-            setTodos(newTodos);
-        }, */
         getOnlyDoneTasks: () => {
-            return todos.filter(task => task.isDone);
+            return todos.filter(task => task.done);
         },
         getOnlyUnDoneTasks: () => {
-            return todos.filter(task => !task.isDone);
+            return todos.filter(task => !task.done);
         },
         isValidTitle: title => {
             if (title.trim().length === 0) {
@@ -58,7 +48,7 @@ export default initialValue => {
                 }
             }
             
-            if (todos.findIndex(task => task.title === title) > -1) {
+            if (todos.findIndex(task => task.name === title) > -1) {
                 return {
                     result: false,
                     message: Constants.ERROR_DUPLICATE_TASK

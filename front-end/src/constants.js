@@ -14,4 +14,6 @@ export const Constants = {
 
     ERROR_EMPTY_TASK: 'Поле задачи не может быть пустым',
     ERROR_DUPLICATE_TASK: 'Такая задача уже существует',
+
+    ERROR_NON_EXIST_TASK: 'Такой задачи не существует'
 };

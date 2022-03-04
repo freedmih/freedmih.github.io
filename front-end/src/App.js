@@ -16,6 +16,10 @@ import { GetIntDateNow } from './utils/date';
 
 import { message } from 'antd';
 
+import API from './api/api';
+
+import { USER_ID } from './api/constants';
+
 const error = text => {
   message.error(text);
 };
@@ -37,8 +41,17 @@ function App() {
     updateTodo,
     getOnlyDoneTasks,
     getOnlyUnDoneTasks,
-    isValidTitle
+    isValidTitle,
+    loadTodos
   } = useTaskState([]);
+
+  useEffect(() => {
+    API.get(`tasks/${USER_ID}`)
+    .then(res => {
+      const todos = res.data;
+      loadTodos(todos.tasks);
+    });
+  }, []);
 
   const filteredTasks = () => {
     switch (filter) {
@@ -93,7 +106,15 @@ function App() {
       return false;
     }
 
-    setIndex(prevIndex => {
+    API.post(`tasks/${USER_ID}`, {
+      name: titleTask,
+      done: false
+    })
+    .then(res => {
+
+    });
+
+/*     setIndex(prevIndex => {
       addTodo({
         id: index,
         title: titleTask,
@@ -101,9 +122,24 @@ function App() {
         isDone: false
       });
       return ++prevIndex;
-    })
+    }) */
 
     return true;
+  }
+
+  const deleteTask = uuid => {
+    let isDeleted = false;
+    API.delete(`task/${USER_ID}/${uuid}`)
+    .then(res => {
+      isDeleted = true;
+    })
+    .catch(err => {
+      if(err.response.status == 404) {
+        error(Constants.ERROR_NON_EXIST_TASK);
+      }
+    })
+
+    return isDeleted;
   }
 
   const footer = limitedTasks.length > Constants.MAX_TASKS_PER_PAGE ? <Pagination count={limitedTasks.length} activePage={page} setActivePage={setPage} /> : <></>
@@ -116,7 +152,7 @@ function App() {
         <FilterButtons filter={filter} setFilter={setFilter} />
         <SortButtons setSortType={setSortType} />
       </div>
-      <TaskList isValidTitle={isValidTitle} deleteTask={deleteTodo} updateTodo={updateTodo} tasks={getTasksByPage(page)} />
+      <TaskList isValidTitle={isValidTitle} deleteTask={deleteTask} updateTodo={updateTodo} tasks={getTasksByPage(page)} />
       {footer}
     </div>
   );

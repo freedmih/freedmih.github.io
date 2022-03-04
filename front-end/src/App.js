@@ -33,8 +33,6 @@ function App() {
   const [order, setOrder] = useState(Constants.DATE_FILTER_DIRECTION_UP);
   const [count, setCount] = useState(0);
 
-  const [isLoading, setLoading] = useState(false);
-
   const {
     todos,
     isValidTitle,
@@ -42,7 +40,6 @@ function App() {
   } = useTaskState([]);
 
   async function getTasks() {
-    setLoading(true);
     await API.get(`tasks/${USER_ID}`, {
       params: {
         page,
@@ -56,12 +53,10 @@ function App() {
         if (todos.tasks.length === 0 && page > 1) {
           setCount(todos.count);
           setPage(page - 1);
-          setLoading(false);
           return;
         }
         loadTodos(todos.tasks);
         setCount(todos.count);
-        setLoading(false);
       });
   }
 
@@ -129,7 +124,6 @@ function App() {
     <div className="App">
       <h1>Todo</h1>
       <FormInput addTask={addTask} />
-      <Spin spinning={false}>
         <div style={{ minHeight: '600px' }}>
           <div className="control-container">
             <FilterButtons filter={filterBy} setFilter={setFilterBy} />
@@ -138,7 +132,6 @@ function App() {
           <TaskList isValidTitle={isValidTitle} deleteTask={deleteTask} updateTask={updateTask} tasks={todos} />
           {footer}
         </div>
-      </Spin>
     </div>
   );
 }

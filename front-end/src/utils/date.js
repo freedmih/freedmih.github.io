@@ -2,6 +2,7 @@ export const GetIntDateNow = () => new Date().getTime();
 
 export function GetStringDateByTime(date) {
     let dateObj = new Date(date);
+    return dateObj.toLocaleString();
     return `${dateObj.getDay()}/${dateObj.getMonth()}/${dateObj.getFullYear()}`;
 } 
 

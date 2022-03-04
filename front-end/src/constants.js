@@ -15,5 +15,12 @@ export const Constants = {
     ERROR_EMPTY_TASK: 'Поле задачи не может быть пустым',
     ERROR_DUPLICATE_TASK: 'Такая задача уже существует',
 
-    ERROR_NON_EXIST_TASK: 'Такой задачи не существует'
+    ERROR_NON_EXIST_TASK: 'Такой задачи не существует',
+
+
+    HTTP_OK: 200,
+    HTTP_BAD_REQUEST: 400,
+    HTTP_UNPROCESSABLE_ENTITY: 422,
+    HTTP_NOT_FOUND: 404,
+    HTTP_NO_CONTENT: 204
 };

@@ -82,7 +82,7 @@ function App() {
       done: false
     })
       .then(res => {
-        if (res.status === 200) {
+        if (res.status === Constants.HTTP_OK) {
           getTasks();
         }
         return true;
@@ -96,7 +96,7 @@ function App() {
   const deleteTask = async uuid => {
     return await API.delete(`task/${USER_ID}/${uuid}`)
       .then(res => {
-        if (res.status == 204) {
+        if (res.status == Constants.HTTP_NO_CONTENT) {
           getTasks();
           return true;
         }
@@ -108,12 +108,11 @@ function App() {
   }
 
   const updateTask = async task => {
-    console.log(task);
     return await API.patch(`task/${USER_ID}/${task.uuid}`, {
       ...task
     })
       .then(res => {
-        if (res.status == 200) {
+        if (res.status == Constants.HTTP_OK) {
           getTasks();
           return true;
         }
@@ -130,7 +129,7 @@ function App() {
     <div className="App">
       <h1>Todo</h1>
       <FormInput addTask={addTask} />
-      <Spin spinning={isLoading}>
+      <Spin spinning={false}>
         <div style={{ minHeight: '600px' }}>
           <div className="control-container">
             <FilterButtons filter={filterBy} setFilter={setFilterBy} />

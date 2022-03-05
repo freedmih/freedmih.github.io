@@ -57,8 +57,8 @@ function App() {
   useEffect(() => {
     receiveTasks();
   }, [page, filterBy, order]);
-  console.log(count);
-  //let footer = count > Constants.MAX_TASKS_PER_PAGE ? <Pagination count={count} activePage={page} setActivePage={setPage} /> : <></>
+
+  let footer = count > Constants.MAX_TASKS_PER_PAGE ? <Pagination pageSize={Constants.MAX_TASKS_PER_PAGE} current={page} onChange={page => setPage(page)} total={count} /> : <></>
   
 
   return (
@@ -71,7 +71,7 @@ function App() {
           <SortButtons setSortType={setOrder} />
         </div>
         <TaskList isValidTitle={isValidTitle} tasks={todos} receiveTasks={receiveTasks} />
-        <Pagination pageSize={Constants.MAX_TASKS_PER_PAGE} current={page} onChange={page => setPage(page)} total={count} />
+        {footer}
       </div>
     </div>
   );

@@ -29,12 +29,14 @@ export default function Pagination({ count, activePage, setActivePage }) {
     }, [activePage, count, setActivePage]);
 
     return (
-        <div className="pagination">
+        <Pagination current={activePage} onChange={page => setActivePage(page)} total={1} />
+
+/*         <div className="pagination">
             <button onClick={() => setActivePage(Constants.FIRST_PAGE_INDEX)}>{'<<'}</button>
             <button disabled={activePage <= Constants.FIRST_PAGE_INDEX} onClick={() => setActivePage(activePage - 1)}>{'<'}</button>
             {buttonsInfo.buttons}
             <button disabled={activePage >= buttonsInfo.lastPage - 1} onClick={() => setActivePage(activePage + 1)}>{'>'}</button>
             <button onClick={() => setActivePage(buttonsInfo.lastPage - 1)}>{'>>'}</button>
-        </div>
+        </div> */
     )
 }

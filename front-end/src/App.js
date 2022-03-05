@@ -4,10 +4,9 @@ import TaskList from "./components/TaskList";
 
 import useTaskState from "./hooks/useTaskState";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useState } from "react";
 import SortButtons from './components/SortButtons';
-import Pagination from './components/Pagination';
 
 import { Constants } from "./constants";
 import FilterButtons from './components/FilterButtons';
@@ -17,7 +16,7 @@ import API from './api/api';
 
 import { USER_ID } from './api/constants';
 
-import { Typography } from 'antd';
+import { Typography, Pagination } from 'antd';
 
 const { Title } = Typography;
 
@@ -58,20 +57,21 @@ function App() {
   useEffect(() => {
     receiveTasks();
   }, [page, filterBy, order]);
-
-  const footer = count > Constants.MAX_TASKS_PER_PAGE ? <Pagination count={count} activePage={page} setActivePage={setPage} /> : <></>
+  console.log(count);
+  //let footer = count > Constants.MAX_TASKS_PER_PAGE ? <Pagination count={count} activePage={page} setActivePage={setPage} /> : <></>
+  
 
   return (
     <div className="App">
       <Title level={2}>Todo</Title>
       <FormInput receiveTasks={receiveTasks} isValidTitle={isValidTitle}/>
-      <div style={{ minHeight: '600px' }}>
+      <div style={{ minHeight: '600px' }}>  
         <div className="control-container">
           <FilterButtons setFilter={setFilterBy} />
           <SortButtons setSortType={setOrder} />
         </div>
         <TaskList isValidTitle={isValidTitle} tasks={todos} receiveTasks={receiveTasks} />
-        {footer}
+        <Pagination pageSize={Constants.MAX_TASKS_PER_PAGE} current={page} onChange={page => setPage(page)} total={count} />
       </div>
     </div>
   );

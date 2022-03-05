@@ -39,8 +39,8 @@ function App() {
     loadTodos
   } = useTaskState([]);
 
-  async function getTasks() {
-    await API.get(`tasks/${USER_ID}`, {
+  async function receiveTasks() {
+    API.get(`tasks/${USER_ID}`, {
       params: {
         page,
         filterBy,
@@ -61,7 +61,7 @@ function App() {
   }
 
   useEffect(() => {
-    getTasks();
+    receiveTasks();
   }, [page, filterBy, order]);
 
   const addTask = async titleTask => {
@@ -78,39 +78,9 @@ function App() {
     })
       .then(res => {
         if (res.status === Constants.HTTP_OK) {
-          getTasks();
+          receiveTasks();
         }
         return true;
-      })
-      .catch(err => {
-        error(err.response.data.message);
-        return false;
-      });
-  }
-
-  const deleteTask = async uuid => {
-    return await API.delete(`task/${USER_ID}/${uuid}`)
-      .then(res => {
-        if (res.status == Constants.HTTP_NO_CONTENT) {
-          getTasks();
-          return true;
-        }
-      })
-      .catch(err => {
-        error(err.response.data.message);
-        return false;
-      });
-  }
-
-  const updateTask = async task => {
-    return await API.patch(`task/${USER_ID}/${task.uuid}`, {
-      ...task
-    })
-      .then(res => {
-        if (res.status == Constants.HTTP_OK) {
-          getTasks();
-          return true;
-        }
       })
       .catch(err => {
         error(err.response.data.message);
@@ -129,7 +99,7 @@ function App() {
             <FilterButtons filter={filterBy} setFilter={setFilterBy} />
             <SortButtons setSortType={setOrder} />
           </div>
-          <TaskList isValidTitle={isValidTitle} deleteTask={deleteTask} updateTask={updateTask} tasks={todos} />
+          <TaskList isValidTitle={isValidTitle} tasks={todos} receiveTasks={receiveTasks} />
           {footer}
         </div>
     </div>

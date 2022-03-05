@@ -113,15 +113,5 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
                 </Card>
             </Col>
         </Row>
-        /*         <div className="task" onClick={() => toggleEditMode()}>
-                    <div className="task-left">
-                        <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={() => updateTask({ uuid: task.uuid, done: !task.done })} checked={task.done} />
-                        {details}
-                    </div>
-                    <div className="task-right">
-                        {GetStringDateByTime(task.createdAt)}
-                        <button className="btn-delete-task" onClick={e => handleDelete(e, task.uuid)} disabled={loading}>Delete</button>
-                    </div>
-                </div> */
     )
 }

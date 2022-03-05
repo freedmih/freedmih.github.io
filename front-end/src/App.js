@@ -17,6 +17,10 @@ import API from './api/api';
 
 import { USER_ID } from './api/constants';
 
+import { Typography } from 'antd';
+
+const { Title } = Typography;
+
 function App() {
 
   const [filterBy, setFilterBy] = useState(Constants.FILTER_ALL);
@@ -59,7 +63,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Todo</h1>
+      <Title level={2}>Todo</Title>
       <FormInput receiveTasks={receiveTasks} isValidTitle={isValidTitle}/>
       <div style={{ minHeight: '600px' }}>
         <div className="control-container">

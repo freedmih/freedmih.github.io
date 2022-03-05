@@ -5,7 +5,7 @@ import { USER_ID } from "../api/constants";
 
 import API from "./../api/api";
 
-import { message } from 'antd';
+import { Input, message } from 'antd';
 
 const error = text => {
     message.error(text);
@@ -51,7 +51,7 @@ export default function FormInput({ isValidTitle, receiveTasks }) {
 
     return (
         <div className="input-container">
-            <input className="add-task-input" type="text" placeholder="I want to..."
+            <Input className="add-task-input" type="text" placeholder="I want to..."
                 onKeyDown={e => handleKeyDown(e)} value={titleTask} onChange={e => setTitleTask(e.target.value)} disabled={loading} />
         </div>
     )

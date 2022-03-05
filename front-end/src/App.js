@@ -12,19 +12,10 @@ import Pagination from './components/Pagination';
 import { Constants } from "./constants";
 import FilterButtons from './components/FilterButtons';
 import FormInput from './components/FormInput';
-import { GetIntDateNow } from './utils/date';
-
-import { message } from 'antd';
 
 import API from './api/api';
 
 import { USER_ID } from './api/constants';
-
-import { Spin } from 'antd';
-
-const error = text => {
-  message.error(text);
-};
 
 function App() {
 
@@ -64,44 +55,20 @@ function App() {
     receiveTasks();
   }, [page, filterBy, order]);
 
-  const addTask = async titleTask => {
-    const validResult = isValidTitle(titleTask);
-
-    if (!validResult.result) {
-      error(validResult.message);
-      return false;
-    }
-
-    return await API.post(`task/${USER_ID}`, {
-      name: titleTask,
-      done: false
-    })
-      .then(res => {
-        if (res.status === Constants.HTTP_OK) {
-          receiveTasks();
-        }
-        return true;
-      })
-      .catch(err => {
-        error(err.response.data.message);
-        return false;
-      });
-  }
-
   const footer = count > Constants.MAX_TASKS_PER_PAGE ? <Pagination count={count} activePage={page} setActivePage={setPage} /> : <></>
 
   return (
     <div className="App">
       <h1>Todo</h1>
-      <FormInput addTask={addTask} />
-        <div style={{ minHeight: '600px' }}>
-          <div className="control-container">
-            <FilterButtons filter={filterBy} setFilter={setFilterBy} />
-            <SortButtons setSortType={setOrder} />
-          </div>
-          <TaskList isValidTitle={isValidTitle} tasks={todos} receiveTasks={receiveTasks} />
-          {footer}
+      <FormInput receiveTasks={receiveTasks} isValidTitle={isValidTitle}/>
+      <div style={{ minHeight: '600px' }}>
+        <div className="control-container">
+          <FilterButtons filter={filterBy} setFilter={setFilterBy} />
+          <SortButtons setSortType={setOrder} />
         </div>
+        <TaskList isValidTitle={isValidTitle} tasks={todos} receiveTasks={receiveTasks} />
+        {footer}
+      </div>
     </div>
   );
 }

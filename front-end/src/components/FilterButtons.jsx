@@ -1,14 +1,29 @@
 import { Constants } from "../constants";
+import { Button, Radio } from 'antd';
+import { useState } from "react";
 
-const GetFilterStyle = selected => selected ? "control-button control-button-selected" : "control-button";
+const options = [
+    { label: 'All', value: Constants.FILTER_ALL },
+    { label: 'Done', value: Constants.FILTER_DONE },
+    { label: 'Undone', value: Constants.FILTER_UNDONE },
+]
 
-export default function FilterButtons({ filter, setFilter }) {
+export default function FilterButtons({ setFilter }) {
+
+    const [value, setValue] = useState(options[0].value);
+
+    const handleOnChange = e => {
+        setValue(e.target.value);
+        setFilter(e.target.value);
+    }
 
     return (
-        <div className="control-buttons">
-            <button className={GetFilterStyle(filter === Constants.FILTER_ALL)} onClick={() => setFilter(Constants.FILTER_ALL)}>All</button>
-            <button className={GetFilterStyle(filter === Constants.FILTER_DONE)} onClick={() => setFilter(Constants.FILTER_DONE)}>Done</button>
-            <button className={GetFilterStyle(filter === Constants.FILTER_UNDONE)} onClick={() => setFilter(Constants.FILTER_UNDONE)}>Undone</button>
-        </div>
+        <Radio.Group value={"large"}
+            options={options}
+            optionType="button"
+            value={value}
+            onChange={e => handleOnChange(e)}
+        >
+        </Radio.Group>
     )
 }

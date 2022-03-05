@@ -67,7 +67,7 @@ function App() {
       <FormInput receiveTasks={receiveTasks} isValidTitle={isValidTitle}/>
       <div style={{ minHeight: '600px' }}>
         <div className="control-container">
-          <FilterButtons filter={filterBy} setFilter={setFilterBy} />
+          <FilterButtons setFilter={setFilterBy} />
           <SortButtons setSortType={setOrder} />
         </div>
         <TaskList isValidTitle={isValidTitle} tasks={todos} receiveTasks={receiveTasks} />

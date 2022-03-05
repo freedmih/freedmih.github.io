@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { GetStringDateByTime } from "../utils/date";
 
-import { message } from 'antd';
+import { message, Row, Col, Input, Checkbox } from 'antd';
 
 import API from './../api/api';
-import { Constants } from "../constants";
+import { Card, Button } from 'antd';
+
+
 import { USER_ID } from "../api/constants";
 
-const GetMarkedTitle = (title, isDone) => isDone ? <s>{title}</s> : <>{title}</>
+import { Typography, Space } from 'antd';
+
+const { Text } = Typography;
+
+const GetMarkedTitle = (title, isDone) => isDone ? <Text><s>{title}</s></Text> : <Text>{title}</Text>
 
 
 const error = text => {
@@ -84,20 +90,38 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
     }
 
     const details = editStatus ?
-        <input onBlur={() => setEditStatus(false)} autoFocus type="text" className="edit-task-input" onKeyDown={e => handleInput(e)}
-            value={editText} onChange={e => setEditText(e.target.value)} disabled={loading}/>
+        <Input onBlur={() => setEditStatus(false)} autoFocus type="text" onKeyDown={e => handleInput(e)}
+            value={editText} onChange={e => setEditText(e.target.value)} disabled={loading} />
         : GetMarkedTitle(task.name, task.done)
 
     return (
-        <div className="task" onClick={() => toggleEditMode()}>
-            <div className="task-left">
-                <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={() => updateTask({ uuid: task.uuid, done: !task.done })} checked={task.done} />
-                {details}
-            </div>
-            <div className="task-right">
-                {GetStringDateByTime(task.createdAt)}
-                <button className="btn-delete-task" onClick={e => handleDelete(e, task.uuid)} disabled={loading}>Delete</button>
-            </div>
-        </div>
+        <Row gutter={16}>
+            <Col span={24}>
+                <Card onClick={() => toggleEditMode()} style={{margin: '5px 0'}}>
+                    <Row justify="space-between" align="middle">
+                        
+                        <Space>
+                            <Checkbox onClick={e => e.stopPropagation()} onChange={() => updateTask({ uuid: task.uuid, done: !task.done })} checked={task.done} />
+                            {details}
+                        </Space>
+                        
+                        <Space>
+                            <Text>{GetStringDateByTime(task.createdAt)}</Text>
+                            <Button danger onClick={e => handleDelete(e, task.uuid)} disabled={loading}>Delete</Button>
+                        </Space>
+                    </Row>
+                </Card>
+            </Col>
+        </Row>
+        /*         <div className="task" onClick={() => toggleEditMode()}>
+                    <div className="task-left">
+                        <input type="checkbox" className="btn-track" onClick={e => e.stopPropagation()} onChange={() => updateTask({ uuid: task.uuid, done: !task.done })} checked={task.done} />
+                        {details}
+                    </div>
+                    <div className="task-right">
+                        {GetStringDateByTime(task.createdAt)}
+                        <button className="btn-delete-task" onClick={e => handleDelete(e, task.uuid)} disabled={loading}>Delete</button>
+                    </div>
+                </div> */
     )
 }

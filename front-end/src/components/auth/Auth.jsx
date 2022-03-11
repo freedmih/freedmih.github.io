@@ -1,8 +1,32 @@
 import { Form, Input, Button, Checkbox } from 'antd';
 
+import { useHistory } from "react-router-dom";
+
+import API from '../../api/api';
+import { message, Row } from "antd";
+
+const error = text => {
+    message.error(text);
+};
+
 const Auth = props => {
-    const onFinish = (values) => {
-        console.log('Success:', values);
+
+    const history = useHistory();
+
+    const onFinish = async (values) => {
+        try {
+            const result = await API.post('/auth', {
+                login: values.username,
+                password: values.password
+            });
+
+            const token = result.data.token;
+            localStorage.setItem('jwt', token);
+            history.push('/')
+        }
+        catch (err) {
+            error(err.response.data.errors[0]);
+        }
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -10,7 +34,7 @@ const Auth = props => {
     };
 
     return (
-        <div className='App' style={{marginTop: '50px', maxWidth: '400px'}}>
+        <Row type="flex" justify="center" align="top" style={{ minHeight: '100vh', marginTop: '50px' }}>
             <Form
                 name="basic"
                 labelCol={{
@@ -60,7 +84,6 @@ const Auth = props => {
                         span: 16,
                     }}
                 >
-                    <Checkbox>Remember me</Checkbox>
                 </Form.Item>
 
                 <Form.Item
@@ -69,12 +92,12 @@ const Auth = props => {
                         span: 16,
                     }}
                 >
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" style={{width: '50%'}}>
                         Submit
                     </Button>
                 </Form.Item>
             </Form>
-        </div>
+        </Row>
     );
 }
 

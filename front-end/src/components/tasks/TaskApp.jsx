@@ -25,25 +25,20 @@ const redirectIfNotLogin = (history) => {
         history.push('/auth');
     }
 
-    try {
-        API.post('/validate', {}, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    API.post('/validate', {}, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+        }
+    })
+        .then(res => {
+            if (res.status !== 200) {
+                history.push('/auth');
             }
         })
-            .then(res => {
-                if (res.status !== 200) {
-                    history.push('/auth');
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                history.push('/auth');
-            })
-    }
-    catch (err) {
-        history.push('/auth');
-    }
+        .catch(err => {
+            console.log(err);
+            history.push('/auth');
+        })
 }
 
 function TaskApp() {

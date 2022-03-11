@@ -31,13 +31,20 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
 
     const updateTask = async task => {
         try {
-            await API.patch(`task/${USER_ID}/${task.uuid}`, {
+            await API.patch(`task/${task.uuid}`, {
                 ...task
-            })
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                }
+            }
+            )
             receiveTasks();
         }
         catch (e) {
-            const errorMessage = e.response.data.message;
+            console.log(e.response.data.errors);
+            const errorMessage = e.response.data.errors[0];
             error(errorMessage);
             setLoading(false);
         }
@@ -71,7 +78,11 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
     const removeTask = async uuid => {
         try {
             setLoading(true);
-            await API.delete(`task/${USER_ID}/${uuid}`);
+            await API.delete(`task/${uuid}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                }
+            });
             receiveTasks();
         }
         catch (e) {

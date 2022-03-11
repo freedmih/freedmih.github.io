@@ -1,10 +1,11 @@
 import { Form, Input, Button, Checkbox } from 'antd';
 
+import { useEffect } from "react";
+
 import { useHistory } from "react-router-dom";
 
 import API from '../../api/api';
 import { message, Row } from "antd";
-import { useEffect } from 'react';
 
 const error = text => {
     message.error(text);
@@ -23,9 +24,10 @@ const Auth = props => {
 
     const onFinish = async (values) => {
         try {
-            const result = await API.post('/auth', {
+            const result = await API.post('/register', {
                 login: values.username,
-                password: values.password
+                password: values.password,
+                passwordConfirmation: values.passwordConfirmation
             });
 
             const token = result.data.token;
@@ -33,6 +35,7 @@ const Auth = props => {
             history.push('/')
         }
         catch (err) {
+            console.log(err.response.data.errors);
             error(err.response.data.errors[0]);
         }
     };
@@ -46,10 +49,10 @@ const Auth = props => {
             <Form
                 name="basic"
                 labelCol={{
-                    span: 8,
+                    span: 10,
                 }}
                 wrapperCol={{
-                    span: 16,
+                    span: 14,
                 }}
                 initialValues={{
                     remember: true,
@@ -85,22 +88,25 @@ const Auth = props => {
                 </Form.Item>
 
                 <Form.Item
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
+                    label="Password confirm"
+                    name="passwordConfirmation"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password confirmation!',
+                        },
+                    ]}
                 >
+                    <Input.Password />
                 </Form.Item>
 
                 <Form.Item
                     wrapperCol={{
-                        offset: 8,
-                        span: 16,
+                        offset: 10,
+                        span: 14,
                     }}
                 >
-                    <Button type="primary" htmlType="submit" style={{ width: '50%' }}>
+                    <Button type="primary" htmlType="submit" style={{width: '50%'}}>
                         Submit
                     </Button>
                 </Form.Item>

@@ -25,10 +25,16 @@ export default function FormInput({ isValidTitle, receiveTasks }) {
 
         try {
             setLoading(true);
-            await API.post(`task/${USER_ID}`, {
+            await API.post(`task/`, {
                 name: titleTask,
                 done: false
-            })
+            },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                }
+            )
             setTitleTask(Constants.EMPTY_STRING);
             receiveTasks();
         }

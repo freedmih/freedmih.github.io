@@ -1,9 +1,12 @@
 import './App.css';
 import TaskApp from "./components/tasks/TaskApp";
 import Auth from "./components/auth/Auth";
+import Register from "./components/auth/Register";
 import { Typography, Pagination } from 'antd';
+import { useHistory } from "react-router-dom";
+import React, { useEffect } from 'react';
 
-import React from 'react';
+import API from './api/api';
 
 import {
   BrowserRouter as Router,
@@ -22,7 +25,7 @@ function App() {
           <Auth/>
         </Route>
         <Route path="/register">
-          <></>
+          <Register></Register>
         </Route>
         <Route path="/">
           <TaskApp />

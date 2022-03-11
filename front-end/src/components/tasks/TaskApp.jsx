@@ -50,9 +50,8 @@ function TaskApp() {
 
     const history = useHistory();
 
-    useEffect(() => {
-        redirectIfNotLogin(history);
-    }, []);
+    redirectIfNotLogin(history);
+    
     const {
         todos,
         isValidTitle,

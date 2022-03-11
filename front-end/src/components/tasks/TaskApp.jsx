@@ -13,33 +13,13 @@ import { useHistory } from "react-router-dom";
 import API from '../../api/api';
 
 import { USER_ID } from '../../api/constants';
+import {redirectIfNotLogin} from "../../utils/redirect";
 
 import { Typography, Pagination, Row, Col } from 'antd';
 
 const { Title, Link } = Typography;
 
-const redirectIfNotLogin = (history) => {
-    const token = localStorage.getItem('jwt');
 
-    if (!token) {
-        history.push('/auth');
-    }
-
-    API.post('/validate', {}, {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-        }
-    })
-        .then(res => {
-            if (res.status !== 200) {
-                history.push('/auth');
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            history.push('/auth');
-        })
-}
 
 function TaskApp() {
 
@@ -51,7 +31,7 @@ function TaskApp() {
     const history = useHistory();
 
     redirectIfNotLogin(history);
-    
+
     const {
         todos,
         isValidTitle,

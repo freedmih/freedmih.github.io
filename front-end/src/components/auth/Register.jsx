@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 import API from '../../api/api';
 import { message, Row, Typography } from "antd";
 
+import {redirectIfLogin} from "../../utils/redirect";
+
 const { Link } = Typography;
 
 const error = text => {
@@ -17,12 +19,8 @@ const Auth = props => {
 
     const history = useHistory();
 
-    useEffect(() => {
-        const token = localStorage.getItem('jwt');
-        if (token) {
-            history.push('/');
-        }
-    }, []);
+    redirectIfLogin(history);
+    
 
     const onFinish = async (values) => {
         try {

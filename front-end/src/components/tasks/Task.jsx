@@ -86,7 +86,7 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
             receiveTasks();
         }
         catch (e) {
-            const errorMessage = e.response.data.message;
+            const errorMessage = e.response.data.errors[0];
             error(errorMessage);
             setLoading(false);
         }

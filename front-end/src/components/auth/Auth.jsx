@@ -88,7 +88,7 @@ const Auth = props => {
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Link onClick={() => history.push('/register')}>
-                        Don't have account?
+                        Don't have an account?
                     </Link>
                 </Form.Item>
 

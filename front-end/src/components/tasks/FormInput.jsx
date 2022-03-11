@@ -39,7 +39,7 @@ export default function FormInput({ isValidTitle, receiveTasks }) {
             receiveTasks();
         }
         catch (e) {
-            const errorMessage = e.response.data.message;
+            const errorMessage = e.response.data.errors[0];
             error(errorMessage);
         }
         finally {

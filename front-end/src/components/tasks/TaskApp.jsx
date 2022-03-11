@@ -18,6 +18,30 @@ import { Typography, Pagination, Row, Col } from 'antd';
 
 const { Title, Link } = Typography;
 
+const redirectIfNotLogin = (history) => {
+    const token = localStorage.getItem('jwt');
+
+    if (!token) {
+        history.push('/auth');
+    }
+
+    try {
+        API.post('/validate', {}, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            }
+        })
+            .then(res => {
+                if (res.status !== 200) {
+                    history.push('/auth');
+                }
+            });
+    }
+    catch (err) {
+        history.push('/auth');
+    }
+}
+
 function TaskApp() {
 
     const [filterBy, setFilterBy] = useState(Constants.FILTER_ALL);
@@ -28,12 +52,8 @@ function TaskApp() {
     const history = useHistory();
 
     useEffect(() => {
-        const token = localStorage.getItem('jwt');
-        if (!token) {
-            history.push('/auth');
-        }
+        redirectIfNotLogin(history);
     }, []);
-
     const {
         todos,
         isValidTitle,
@@ -80,12 +100,12 @@ function TaskApp() {
         <div className="App">
             <Row align="middle" justify="center">
                 <Col span={22}>
-                <Title level={2}>Todo</Title>
+                    <Title level={2}>Todo</Title>
                 </Col>
                 <Col span={2}>
-                <Link onClick={() => logout()} target="_blank">
-                    Logout
-                </Link>
+                    <Link onClick={() => logout()} target="_blank">
+                        Logout
+                    </Link>
                 </Col>
             </Row>
             <FormInput receiveTasks={receiveTasks} isValidTitle={isValidTitle} />

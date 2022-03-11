@@ -35,7 +35,11 @@ const redirectIfNotLogin = (history) => {
                 if (res.status !== 200) {
                     history.push('/auth');
                 }
-            });
+            })
+            .catch(err => {
+                console.log(err);
+                history.push('/auth');
+            })
     }
     catch (err) {
         history.push('/auth');

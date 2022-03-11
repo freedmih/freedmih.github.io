@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { Constants } from "../constants";
-import { USER_ID } from "../api/constants";
+import { Constants } from "../../constants";
+import { USER_ID } from "../../api/constants";
 
-import API from "./../api/api";
+import API from "./../../api/api";
 
 import { Input, message } from 'antd';
 

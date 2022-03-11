@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { GetStringDateByTime } from "../utils/date";
+import { GetStringDateByTime } from "../../utils/date";
 
 import { message, Row, Col, Input, Checkbox } from 'antd';
 
-import API from './../api/api';
+import API from './../../api/api';
 import { Card, Button } from 'antd';
 
 
-import { USER_ID } from "../api/constants";
+import { USER_ID } from "../../api/constants";
 
 import { Typography, Space } from 'antd';
 

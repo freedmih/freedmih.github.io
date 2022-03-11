@@ -1,7 +1,7 @@
-import upArrow from './../svg/upArrow.svg';
-import downArrow from './../svg/downArrow.svg';
+import upArrow from './../../svg/upArrow.svg';
+import downArrow from './../../svg/downArrow.svg';
 
-import { Constants } from '../constants';
+import { Constants } from '../../constants';
 
 import { Typography, Space } from 'antd';
 

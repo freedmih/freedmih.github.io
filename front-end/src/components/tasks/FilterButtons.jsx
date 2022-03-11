@@ -1,4 +1,4 @@
-import { Constants } from "../constants";
+import { Constants } from "../../constants";
 import { Button, Radio } from 'antd';
 import { useState } from "react";
 

@@ -5,7 +5,9 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import API from '../../api/api';
-import { message, Row } from "antd";
+import { message, Row, Typography } from "antd";
+
+const { Link } = Typography;
 
 const error = text => {
     message.error(text);
@@ -98,6 +100,12 @@ const Auth = props => {
                     ]}
                 >
                     <Input.Password />
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Link onClick={() => history.push('/auth')}>
+                        Already have an account?
+                    </Link>
                 </Form.Item>
 
                 <Form.Item

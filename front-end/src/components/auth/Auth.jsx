@@ -3,8 +3,10 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { useHistory } from "react-router-dom";
 
 import API from '../../api/api';
-import { message, Row } from "antd";
+import { message, Row, Typography } from "antd";
 import { useEffect } from 'react';
+
+const { Title, Link } = Typography;
 
 const error = text => {
     message.error(text);
@@ -84,14 +86,10 @@ const Auth = props => {
                     <Input.Password />
                 </Form.Item>
 
-                <Form.Item
-                    name="remember"
-                    valuePropName="checked"
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
-                >
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Link onClick={() => history.push('/register')}>
+                        Don't have account?
+                    </Link>
                 </Form.Item>
 
                 <Form.Item

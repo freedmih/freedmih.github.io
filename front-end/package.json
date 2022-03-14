@@ -23,7 +23,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "dev": "REACT_APP_API_URL='https://todo-app-alpaca.herokuapp.com' react-scripts start"
+    "dev": "REACT_APP_API_URL='http://localhost:4000' react-scripts start"
   },
   "eslintConfig": {
     "extends": [

@@ -1,2 +1,1 @@
-export const API_URL = 'https://todo-app-alpaca.herokuapp.com';
-export const USER_ID = 2;
+export const API_URL = process.env.REACT_APP_API_URL;

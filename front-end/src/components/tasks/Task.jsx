@@ -34,11 +34,11 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
             await API.patch(`task/${task.uuid}`, {
                 ...task
             },
-            {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    }
                 }
-            }
             )
             receiveTasks();
         }
@@ -108,14 +108,14 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
     return (
         <Row gutter={16}>
             <Col span={24}>
-                <Card onClick={() => toggleEditMode()} style={{margin: '5px 0'}}>
+                <Card onClick={() => toggleEditMode()} style={{ margin: '5px 0' }}>
                     <Row justify="space-between" align="middle">
-                        
+
                         <Space>
                             <Checkbox onClick={e => e.stopPropagation()} onChange={() => updateTask({ uuid: task.uuid, done: !task.done })} checked={task.done} />
                             {details}
                         </Space>
-                        
+
                         <Space>
                             <Text>{GetStringDateByTime(task.createdAt)}</Text>
                             <Button danger onClick={e => handleDelete(e, task.uuid)} disabled={loading}>Delete</Button>

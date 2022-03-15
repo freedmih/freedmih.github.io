@@ -13,15 +13,19 @@ import { useHistory } from "react-router-dom";
 import API from '../../api/api';
 
 import { USER_ID } from '../../api/constants';
-import {redirectIfNotLogin} from "../../utils/redirect";
-
+import useLogin from "../../hooks/useLogin";
 import { Typography, Pagination, Row, Col } from 'antd';
+
+import {
+    HashRouter as Router,
+    Redirect
+  } from "react-router-dom";
 
 const { Title, Link } = Typography;
 
 
 
-function TaskApp() {
+function TaskApp({isAuth, setAuth}) {
 
     const [filterBy, setFilterBy] = useState(Constants.FILTER_ALL);
     const [page, setPage] = useState(Constants.FIRST_PAGE_INDEX);
@@ -30,7 +34,7 @@ function TaskApp() {
 
     const history = useHistory();
 
-    redirectIfNotLogin(history);
+    //redirectIfNotLogin(history);
 
     const {
         todos,
@@ -67,11 +71,15 @@ function TaskApp() {
         receiveTasks();
     }, [page, filterBy, order]);
 
+    if(!isAuth) {
+        return <Redirect to='/auth'/>
+    }
+
     let footer = count > Constants.MAX_TASKS_PER_PAGE ? <Pagination pageSize={Constants.MAX_TASKS_PER_PAGE} current={page} onChange={page => setPage(page)} total={count} /> : <></>
 
     const logout = () => {
         localStorage.clear();
-        history.push('/auth');
+        setAuth(false);
     }
 
     return (

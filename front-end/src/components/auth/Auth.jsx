@@ -5,7 +5,13 @@ import { useHistory } from "react-router-dom";
 import API from '../../api/api';
 import { message, Row, Typography } from "antd";
 import { useEffect } from 'react';
-import { redirectIfLogin } from '../../utils/redirect';
+
+import useLogin from "../../hooks/useLogin";
+
+import {
+    HashRouter as Router,
+    Redirect
+  } from "react-router-dom";
 
 const { Title, Link } = Typography;
 
@@ -13,11 +19,13 @@ const error = text => {
     message.error(text);
 };
 
-const Auth = props => {
+const Auth = ({isAuth, setAuth}) => {
 
     const history = useHistory();
 
-    redirectIfLogin(history);
+    if(isAuth) {
+        return <Redirect to='/'/>
+    }
 
     const onFinish = async (values) => {
         try {
@@ -28,7 +36,7 @@ const Auth = props => {
 
             const token = result.data.token;
             localStorage.setItem('jwt', token);
-            history.push('/')
+            setAuth(true);
         }
         catch (err) {
             error(err.response.data.errors[0]);

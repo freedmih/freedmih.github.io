@@ -1,0 +1,14 @@
+{
+    "logout": "Logout",
+    "task_all": "All",
+    "task_done": "Done",
+    "task_undone": "Undone",
+    "sort_by_date": "Sort by date",
+    "delete": "Delete",
+    "submit": "Submit",
+
+    "input_login": "Please input your username!",
+    "input_password": "'Please input your password!'",
+
+
+}

@@ -11,7 +11,7 @@ import useLogin from "../../hooks/useLogin";
 import {
     HashRouter as Router,
     Redirect
-  } from "react-router-dom";
+} from "react-router-dom";
 
 const { Title, Link } = Typography;
 
@@ -19,12 +19,10 @@ const error = text => {
     message.error(text);
 };
 
-const Auth = ({isAuth, setAuth}) => {
+const Auth = ({ isAuth, setAuth }) => {
 
-    const history = useHistory();
-
-    if(isAuth) {
-        return <Redirect to='/'/>
+    if (isAuth) {
+        return <Redirect to='/' />
     }
 
     const onFinish = async (values) => {
@@ -70,7 +68,7 @@ const Auth = ({isAuth, setAuth}) => {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your username!',
+                            message: t('input_login'),
                         },
                     ]}
                 >
@@ -83,7 +81,7 @@ const Auth = ({isAuth, setAuth}) => {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your password!',
+                            message: t('input_password'),
                         },
                     ]}
                 >

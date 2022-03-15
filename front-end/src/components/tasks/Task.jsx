@@ -5,7 +5,7 @@ import { message, Row, Col, Input, Checkbox } from 'antd';
 
 import API from './../../api/api';
 import { Card, Button } from 'antd';
-
+import {useTranslation} from "react-i18next";
 
 import { USER_ID } from "../../api/constants";
 
@@ -24,6 +24,8 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
     const [editStatus, setEditStatus] = useState(false);
     const [editText, setEditText] = useState(task.name);
     const [loading, setLoading] = useState(false);
+
+    const {t} = useTranslation();
 
     const toggleEditMode = () => {
         setEditStatus(true);
@@ -102,7 +104,7 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
 
     const details = editStatus ?
         <Input onBlur={() => setEditStatus(false)} autoFocus type="text" onKeyDown={e => handleInput(e)}
-            value={editText} onChange={e => setEditText(e.target.value)} disabled={loading} />
+            value={editText} onChange={e => setEditText(e.target.value)} disabled={loading} onClick={e => e.stopPropagation()} />
         : GetMarkedTitle(task.name, task.done)
 
     return (
@@ -118,7 +120,7 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
 
                         <Space>
                             <Text>{GetStringDateByTime(task.createdAt)}</Text>
-                            <Button danger onClick={e => handleDelete(e, task.uuid)} disabled={loading}>Delete</Button>
+                            <Button danger onClick={e => handleDelete(e, task.uuid)} disabled={loading}>{t('delete')}</Button>
                         </Space>
                     </Row>
                 </Card>

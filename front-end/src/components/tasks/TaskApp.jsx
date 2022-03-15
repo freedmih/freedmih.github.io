@@ -12,8 +12,7 @@ import FormInput from './FormInput';
 import { useHistory } from "react-router-dom";
 import API from '../../api/api';
 
-import { USER_ID } from '../../api/constants';
-import useLogin from "../../hooks/useLogin";
+import {useTranslation} from "react-i18next";
 import { Typography, Pagination, Row, Col } from 'antd';
 
 import {
@@ -32,11 +31,9 @@ function TaskApp({isAuth, setAuth}) {
     const [order, setOrder] = useState(Constants.DATE_FILTER_DIRECTION_UP);
     const [count, setCount] = useState(0);
 
-    const history = useHistory();
+    const {t} = useTranslation();
 
-    //redirectIfNotLogin(history);
-
-    const {
+    const { 
         todos,
         isValidTitle,
         loadTodos
@@ -90,7 +87,7 @@ function TaskApp({isAuth, setAuth}) {
                 </Col>
                 <Col span={2}>
                     <Link onClick={() => logout()} target="_blank">
-                        Logout
+                    {t('logout')}
                     </Link>
                 </Col>
             </Row>

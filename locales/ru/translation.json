@@ -19,5 +19,9 @@
     "go_to_register": "Нет аккаунта?",
     "go_to_auth": "Уже зарегистрированы?",
 
-    "choose_language": "Выбрать язык"
+    "choose_language": "Выбрать язык",
+    
+    "error_empty_task": "Поле задачи не может быть пустым",
+    "error_task_exists": "Такая задача уже существует",
+    "error_non_exists_task": "Такой задачи не существует"
 }

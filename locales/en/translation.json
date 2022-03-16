@@ -1,0 +1,27 @@
+{
+    "logout": "Logout",
+    "task_all": "All",
+    "task_done": "Done",
+    "task_undone": "Undone",
+    "sort_by_date": "Sort by date",
+    "delete": "Delete",
+    "submit": "Submit",
+    "submit_auth": "Sign in",
+    "submit_register": "Sign up",
+
+    "input_login": "Please input your username!",
+    "input_password": "'Please input your password!'",
+    "input_password_confirmation": "Please input your password confirmation!",
+    
+    "username": "Username",
+    "password": "Password",
+    "password_confirm": "Password confirmation",
+    "go_to_register": "Don't have an account?",
+    "go_to_auth": "Already have an account?",
+
+    "choose_language": "Choose language",
+
+    "error_empty_task": "Task name cannot be empty",
+    "error_task_exists": "This task already exists",
+    "error_non_exists_task": "This task not exists"
+}

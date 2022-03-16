@@ -31,7 +31,7 @@ function TaskApp({isAuth, setAuth}) {
     const [order, setOrder] = useState(Constants.DATE_FILTER_DIRECTION_UP);
     const [count, setCount] = useState(0);
 
-    const {t} = useTranslation();
+    const {t,i18n} = useTranslation();
 
     const { 
         todos,
@@ -48,7 +48,8 @@ function TaskApp({isAuth, setAuth}) {
                 pp: Constants.MAX_TASKS_PER_PAGE
             },
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+                'Accept-Language': i18n.language
             }
         })
             .then(res => {

@@ -6,7 +6,7 @@ import API from '../../api/api';
 import { message, Row, Typography } from "antd";
 import { useEffect } from 'react';
 
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import {
     HashRouter as Router,
@@ -21,7 +21,7 @@ const error = text => {
 
 const Auth = ({ isAuth, setAuth }) => {
 
-    const {t} = useTranslation();
+    const { t, i18n } = useTranslation();
     const history = useHistory();
 
     if (isAuth) {
@@ -33,7 +33,13 @@ const Auth = ({ isAuth, setAuth }) => {
             const result = await API.post('/auth', {
                 login: values.username,
                 password: values.password
-            });
+            },
+                {
+                    headers: {
+                        "Accept-Language": i18n.language
+                    }
+                }
+            );
 
             const token = result.data.token;
             localStorage.setItem('jwt', token);

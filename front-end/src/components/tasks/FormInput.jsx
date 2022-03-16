@@ -16,7 +16,7 @@ export default function FormInput({ isValidTitle, receiveTasks }) {
     const [titleTask, setTitleTask] = useState(Constants.EMPTY_STRING);
     const [loading, setLoading] = useState(false);
 
-    const {t} = useTranslation();
+    const {t,i18n} = useTranslation();
 
     const addTask = async titleTask => {
         const validResult = isValidTitle(titleTask);
@@ -34,7 +34,8 @@ export default function FormInput({ isValidTitle, receiveTasks }) {
             },
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+                        'Accept-Language': i18n.language
                     }
                 }
             )

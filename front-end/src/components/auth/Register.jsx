@@ -22,7 +22,7 @@ const error = text => {
 const Auth = ({isAuth, setAuth}) => {
 
     const history = useHistory();
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
 
     if(isAuth) {
         return <Redirect to='/'/>
@@ -34,7 +34,13 @@ const Auth = ({isAuth, setAuth}) => {
                 login: values.username,
                 password: values.password,
                 passwordConfirmation: values.passwordConfirmation
-            });
+            },
+            {
+                headers: {
+                    "Accept-Language": i18n.language
+                }
+            }
+            );
 
             const token = result.data.token;
             localStorage.setItem('jwt', token);

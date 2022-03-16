@@ -25,7 +25,7 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
     const [editText, setEditText] = useState(task.name);
     const [loading, setLoading] = useState(false);
 
-    const {t} = useTranslation();
+    const {t,i18n} = useTranslation();
 
     const toggleEditMode = () => {
         setEditStatus(true);
@@ -38,7 +38,8 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
             },
                 {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+                        'Accept-Language': i18n.language
                     }
                 }
             )
@@ -82,7 +83,8 @@ export default function Task({ task, isValidTitle, receiveTasks }) {
             setLoading(true);
             await API.delete(`task/${uuid}`, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+                    'Accept-Language': i18n.language
                 }
             });
             receiveTasks();

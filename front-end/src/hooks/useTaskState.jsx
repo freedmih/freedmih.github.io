@@ -26,14 +26,7 @@ export default initialValue => {
             if (title.trim().length === 0) {
                 return {
                     result: false,
-                    message: Constants.ERROR_EMPTY_TASK
-                }
-            }
-            
-            if (todos.findIndex(task => task.name === title) > -1) {
-                return {
-                    result: false,
-                    message: Constants.ERROR_DUPLICATE_TASK
+                    message: "error_empty_task"
                 }
             }
 

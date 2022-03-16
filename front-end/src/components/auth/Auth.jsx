@@ -6,7 +6,7 @@ import API from '../../api/api';
 import { message, Row, Typography } from "antd";
 import { useEffect } from 'react';
 
-import useLogin from "../../hooks/useLogin";
+import {useTranslation} from "react-i18next";
 
 import {
     HashRouter as Router,
@@ -20,6 +20,9 @@ const error = text => {
 };
 
 const Auth = ({ isAuth, setAuth }) => {
+
+    const {t} = useTranslation();
+    const history = useHistory();
 
     if (isAuth) {
         return <Redirect to='/' />
@@ -50,10 +53,10 @@ const Auth = ({ isAuth, setAuth }) => {
             <Form
                 name="basic"
                 labelCol={{
-                    span: 8,
+                    span: 10,
                 }}
                 wrapperCol={{
-                    span: 16,
+                    span: 14,
                 }}
                 initialValues={{
                     remember: true,
@@ -63,7 +66,7 @@ const Auth = ({ isAuth, setAuth }) => {
                 autoComplete="off"
             >
                 <Form.Item
-                    label="Username"
+                    label={t('username')}
                     name="username"
                     rules={[
                         {
@@ -76,7 +79,7 @@ const Auth = ({ isAuth, setAuth }) => {
                 </Form.Item>
 
                 <Form.Item
-                    label="Password"
+                    label={t('password')}
                     name="password"
                     rules={[
                         {
@@ -88,20 +91,20 @@ const Auth = ({ isAuth, setAuth }) => {
                     <Input.Password />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Form.Item wrapperCol={{ offset: 10, span: 14 }}>
                     <Link onClick={() => history.push('/register')}>
-                        Don't have an account?
+                        {t('go_to_register')}
                     </Link>
                 </Form.Item>
 
                 <Form.Item
                     wrapperCol={{
-                        offset: 8,
-                        span: 16,
+                        offset: 10,
+                        span: 14,
                     }}
                 >
                     <Button type="primary" htmlType="submit" style={{ width: '50%' }}>
-                        Submit
+                        {t('submit_auth')}
                     </Button>
                 </Form.Item>
             </Form>

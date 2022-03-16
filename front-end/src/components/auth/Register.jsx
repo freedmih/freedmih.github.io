@@ -11,6 +11,7 @@ import {
     HashRouter as Router,
     Redirect
   } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const { Link } = Typography;
 
@@ -21,6 +22,7 @@ const error = text => {
 const Auth = ({isAuth, setAuth}) => {
 
     const history = useHistory();
+    const {t} = useTranslation();
 
     if(isAuth) {
         return <Redirect to='/'/>
@@ -53,10 +55,10 @@ const Auth = ({isAuth, setAuth}) => {
             <Form
                 name="basic"
                 labelCol={{
-                    span: 10,
+                    span: 12,
                 }}
                 wrapperCol={{
-                    span: 14,
+                    span: 12,
                 }}
                 initialValues={{
                     remember: true,
@@ -66,12 +68,12 @@ const Auth = ({isAuth, setAuth}) => {
                 autoComplete="off"
             >
                 <Form.Item
-                    label="Username"
+                    label={t('username')}
                     name="username"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your username!',
+                            message: t('input_login'),
                         },
                     ]}
                 >
@@ -79,12 +81,12 @@ const Auth = ({isAuth, setAuth}) => {
                 </Form.Item>
 
                 <Form.Item
-                    label="Password"
+                    label={t('password')}
                     name="password"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your password!',
+                            message: t('input_password'),
                         },
                     ]}
                 >
@@ -92,32 +94,32 @@ const Auth = ({isAuth, setAuth}) => {
                 </Form.Item>
 
                 <Form.Item
-                    label="Password confirm"
+                    label={t('password_confirm')}
                     name="passwordConfirmation"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your password confirmation!',
+                            message: t('input_password_confirmation'),
                         },
                     ]}
                 >
                     <Input.Password />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Form.Item wrapperCol={{ offset: 12, span: 12 }}>
                     <Link onClick={() => history.push('/auth')}>
-                        Already have an account?
+                        {t('go_to_auth')}
                     </Link>
                 </Form.Item>
 
                 <Form.Item
                     wrapperCol={{
-                        offset: 10,
-                        span: 14,
+                        offset: 12,
+                        span: 12,
                     }}
                 >
-                    <Button type="primary" htmlType="submit" style={{width: '50%'}}>
-                        Submit
+                    <Button type="primary" htmlType="submit" style={{width: '100%'}}>
+                        {t('submit_register')}
                     </Button>
                 </Form.Item>
             </Form>

@@ -5,7 +5,19 @@
     "task_undone": "Незавершенные",
     "sort_by_date": "Сортировать по дате",
     "delete": "Удалить",
+    "submit": "Отправить",
+    "submit_auth": "Войти",
+    "submit_register": "Зарегистрироваться",
 
     "input_login": "Пожалуйста, введите имя пользователя!",
-    "input_password": "Пожалуйста, введите пароль!"
+    "input_password": "Пожалуйста, введите пароль!",
+    "input_password_confirmation": "Пожалуйста, введите пароль еще раз!",
+
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "password_confirm": "Подтверждение пароля",
+    "go_to_register": "Нет аккаунта?",
+    "go_to_auth": "Уже зарегистрированы?",
+
+    "choose_language": "Выбрать язык"
 }

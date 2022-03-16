@@ -6,6 +6,7 @@ import { USER_ID } from "../../api/constants";
 import API from "./../../api/api";
 
 import { Input, message } from 'antd';
+import { useTranslation } from "react-i18next";
 
 const error = text => {
     message.error(text);
@@ -15,11 +16,13 @@ export default function FormInput({ isValidTitle, receiveTasks }) {
     const [titleTask, setTitleTask] = useState(Constants.EMPTY_STRING);
     const [loading, setLoading] = useState(false);
 
+    const {t} = useTranslation();
+
     const addTask = async titleTask => {
         const validResult = isValidTitle(titleTask);
 
         if (!validResult.result) {
-            error(validResult.message);
+            error(t(validResult.message));
             return false;
         }
 
